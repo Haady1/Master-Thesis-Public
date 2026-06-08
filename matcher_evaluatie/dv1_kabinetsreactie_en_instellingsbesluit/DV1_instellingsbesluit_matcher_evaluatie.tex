@@ -1,0 +1,66 @@
+% Retrievalprestatie instellingsbesluit-matcher (DV1).
+% Bron: instellingsbesluit_data/current_no_vlam_top25_20260512_validation_metrics.json
+%        + MRR berekend uit current_no_vlam_top25_20260512_gold_link_ranks.csv (0,683 over 151 gold links).
+% Run: no-VLAM, deterministische tekstuele retrieval + heuristische herrangschikking, 12 mei 2026.
+
+\subsubsection{Retrievalprestatie van de instellingsbesluit-matcher.}
+De instellingsbesluit-matcher werkt in twee fasen: een retrievallaag zoekt
+kandidaat-documenten die mogelijk het instellingsbesluit van een
+adviescollege(-fase) vormen, waarna de VLAM-poort die kandidaten inhoudelijk
+beoordeelt (Tabel~\ref{tab:dv1-matchers}). De hier gerapporteerde evaluatie
+betreft uitsluitend de retrievallaag: de vraag of het juiste instellingsbesluit
+\"uberhaupt in de kandidaatlijst verschijnt, nog v\'o\'or de VLAM-beoordeling.
+Voor deze meting stond VLAM uit en draaide alleen de deterministische, tekstuele
+retrieval met heuristische herrangschikking, zodat de gerapporteerde recall de
+prestatie van de zoeklaag op zichzelf weergeeft.
+
+\noindent Als grondwaarheid dienden eerder handmatig gevalideerde canonieke
+koppelingen tussen een adviescollege-fase en het bijbehorende instellingsbesluit
+(Staatsblad of Staatscourant). Het ging om 151 canonieke koppelingen over 145
+adviescollege-fasen. Net als bij de kabinetsreactie-matcher gaat het dus om
+recall t\'egen bekende, gevalideerde paren, niet om volledige recall over alle
+werkelijke koppelingen (zie Tabel~\ref{tab:dv1-beperkingen}).
+
+\noindent Het juiste instellingsbesluit staat in 63\,\% van de gevallen direct op
+de eerste positie, in 76\,\% binnen de top vijf en in 79\,\% in de volledige
+kandidaatlijst; de mediane rangpositie van een gevonden document is 1 (maximaal
+44). De mean reciprocal rank (MRR), het gemiddelde van de reciproque
+rangposities, bedraagt 0,68, wat aansluit bij een juist document dat doorgaans
+bovenaan de lijst staat (Tabel~\ref{tab:dv1-instelling-retrieval}). In 117 van de
+151 gevallen (78\,\%) belandde het juiste document in de shortlist die normaal
+aan VLAM wordt voorgelegd. De precisie van de retrievallaag is bewust laag --
+slechts 5,7\,\% van de shortlist-kandidaten komt overeen met een gevalideerde
+koppeling -- passend bij een brede zoekstap die op recall is ingericht en de
+uiteindelijke selectie aan de VLAM-poort overlaat.
+
+\noindent De prestatie verschilt sterk per type college: voor eenmalige colleges
+zit het juiste besluit in 88\,\% van de gevallen in de shortlist, voor tijdelijke
+colleges in 73\,\% en voor permanente colleges in slechts 55\,\%. Permanente
+colleges zijn vaker via wetten, oudere Staatsblad-documenten of bredere
+wettelijke kaders ingesteld, wat de retrieval bemoeilijkt. De schattingen zijn
+omgeven met onzekerheid, en de grondwaarheid bestaat uit eerder gevalideerde
+koppelingen, zodat lacunes daarin doorwerken in de cijfers.
+
+\begin{table}[htbp]
+\centering
+\caption{Retrievalprestatie van de instellingsbesluit-matcher tegen handmatig
+gevalideerde canonieke koppelingen ($N = 151$ koppelingen over 145
+adviescollege-fasen), met 95\%-betrouwbaarheidsintervallen volgens Wilson. Alleen
+de deterministische tekstuele retrieval stond aan; VLAM was uitgeschakeld, zodat
+de cijfers de zoeklaag op zichzelf weergeven.}
+\label{tab:dv1-instelling-retrieval}
+\footnotesize
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Metriek & Waarde & 95\,\%-BI \\
+\midrule
+Recall@1               & 0,63 & 0,55--0,70 \\
+Recall@5               & 0,76 & 0,68--0,82 \\
+Recall@10              & 0,78 & 0,70--0,83 \\
+Recall@25              & 0,78 & 0,71--0,84 \\
+Candidate recall       & 0,79 & 0,72--0,85 \\
+VLAM-shortlist recall  & 0,78 & 0,70--0,83 \\
+MRR                    & 0,68 & --- \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,51 @@
+advies_id,adviescollege_id,college,title,date_published,n_official_candidates,best_jaccard,best_candidate_id,best_rank,best_route,best_llm_label,hit_text,best_title_ratio,title_fallback_candidate_id,title_fallback_rank,title_fallback_date_diff,hit_title,hit
+9662,15,Raad voor het Openbaar Bestuur,Autonoom of automaat?,2005-08-01,141,0.0339,kst-30300-VII-11,81,title_route,,False,34.5,blg-571351,17,3678,False,False
+9650,15,Raad voor het Openbaar Bestuur,Advies Commissaris van de Koningin als rijksorgaan,2006-03-01,141,0.0046,kst-27425-1,77,title_route,,False,42.9,blg-269782,34,3037,False,False
+9588,15,Raad voor het Openbaar Bestuur,Besturen over grenzen,2008-05-14,141,0.0045,kst-31200-VII-9-b1,66,title_route,,False,44.8,blg-861730,21,3834,False,False
+9373,15,Raad voor het Openbaar Bestuur,Vertrouwen op democratie,2010-02-01,141,0.0207,blg-746152,3,attachment_promotion,FINAL_ADVICE_OR_REPORT,False,70.3,kst-26806-4,73,3419,False,False
+9470,15,Raad voor het Openbaar Bestuur,Kansen en risico's van sociale media in de representatieve democratie,2012-04-01,141,0.0025,blg-746152,3,attachment_promotion,FINAL_ADVICE_OR_REPORT,False,52.2,blg-408911,11,960,False,False
+9379,15,Raad voor het Openbaar Bestuur,Hoe hoort het eigenlijk?,2014-06-01,141,0.0224,kst-34300-VII-60,120,title_route,,False,90.9,kst-34300-VII-60,120,652,False,False
+9310,15,Raad voor het Openbaar Bestuur,De bestuurlijke verantwoordelijkheid voor systemen,2016-11-01,141,0.0294,blg-746152,3,attachment_promotion,FINAL_ADVICE_OR_REPORT,False,66.7,kst-26806-4,73,5884,False,False
+9225,15,Raad voor het Openbaar Bestuur,"Jong geleerd, oud gedaan",2019-06-01,141,0.0164,blg-1204154,5,attachment_promotion,FINAL_ADVICE_OR_REPORT,False,36.1,blg-269782,34,1803,False,False
+9178,15,Raad voor het Openbaar Bestuur,Van Parijs naar Praktijk,2021-01-01,141,0.0136,blg-1204154,5,attachment_promotion,FINAL_ADVICE_OR_REPORT,False,36.1,blg-571351,17,1954,False,False
+9132,15,Raad voor het Openbaar Bestuur,Di krísis pa enkargo,2022-03-01,141,0.0251,blg-1204154,5,attachment_promotion,FINAL_ADVICE_OR_REPORT,False,31.6,blg-799242,64,1841,False,False
+1911,18,Adviesraad internationale vraagstukken,De Parlementaire Assemblee van de Raad van Europa,2005-02-21,244,0.8807,nds-buza050124-b1,61,attachment_promotion,,True,96.6,nds-buza040226-b1,31,3429,False,True
+1888,18,Adviesraad internationale vraagstukken,Energiek buitenlands beleid,2006-01-01,244,0.0078,kst-31200-V-G-b2,28,title_route,FINAL_ADVICE_OR_REPORT,False,57.9,kst-26643-411,110,3795,False,False
+1847,18,Adviesraad internationale vraagstukken,DEPLOYMENT OF THE ARMED FORCES INTERACTION BETWEEN NATIONAL AND INTERNATIONAL DECISION-MAKING,2007-05-01,244,0.0019,kst-30467-2-b1,60,attachment_promotion,,False,20.9,blg-144386,16,2618,False,False
+1821,18,Adviesraad internationale vraagstukken,CRISIS MANAGEMENT OPERATIONS IN FRAGILE STATES THE NEED FOR A COHERENT APPROACH,2009-03-01,244,0.0014,blg-409029,19,attachment_promotion,FINAL_ADVICE_OR_REPORT,False,18.2,blg-409029,19,2087,False,False
+1785,18,Adviesraad internationale vraagstukken,Combating Piracy at Sea,2010-12-01,244,0.001,blg-409029,19,attachment_promotion,FINAL_ADVICE_OR_REPORT,False,30.5,blg-942160,1,3533,False,False
+1734,18,Adviesraad internationale vraagstukken,Nederland en het Europees Parlement,2012-11-01,244,0.0101,kst-31200-V-G-b2,28,title_route,FINAL_ADVICE_OR_REPORT,False,83.3,blg-142866,6,330,False,False
+1712,18,Adviesraad internationale vraagstukken,PUBLIC SUPPORT FOR THE EUROPEAN UNION,2014-04-01,244,0.0017,kst-30467-2-b1,60,attachment_promotion,,False,17.1,nds-buza050124-b1,61,3284,False,False
+1676,18,Adviesraad internationale vraagstukken,Gedifferentieerde integratie,2015-10-01,244,0.0164,kst-34300-V-70,135,title_route,,False,42.7,kst-19971998-25465-264a,63,448,False,False
+1630,18,Adviesraad internationale vraagstukken,IS DE EUROZONE STORMBESTENDIG?,2017-07-01,244,0.0249,blg-785195,9,title_route,FINAL_ADVICE_OR_REPORT,False,18.0,blg-144386,16,1096,False,False
+1571,18,Adviesraad internationale vraagstukken,Regulering van online content,2020-06-24,244,0.8774,blg-942160,1,attachment_promotion,FINAL_ADVICE_OR_REPORT,True,100.0,blg-942160,1,40,True,True
+8803,21,Raad voor de leefomgeving en infrastructuur,Gas voor Morgen,2005-01-01,232,0.0022,kst-34534-5,131,kamerstuk_context,,False,42.1,blg-1224084,1,7628,False,False
+8644,21,Raad voor de leefomgeving en infrastructuur,Naar een sterk en houdbaar B&O-plan,2007-03-07,232,0.0021,kst-33962-G,181,kamerstuk_context,,False,60.0,kst-31532-A,71,4230,False,False
+8082,21,Raad voor de leefomgeving en infrastructuur,"Identiteit als troef, Waddenlandschap vol verrassingen",2008-12-17,232,0.0024,kst-36740-VII-1,198,kamerstuk_context,,False,46.9,blg-1221388,28,6165,False,False
+8066,21,Raad voor de leefomgeving en infrastructuur,ADVIES ONDERWIJS EN ARBEIDSMARKT WATER,2011-08-29,232,0.0032,kst-31524-312,203,kamerstuk_context,,False,19.5,blg-1221388,28,5180,False,False
+8068,21,Raad voor de leefomgeving en infrastructuur,Nederlandse logistiek 2040,2013-06-01,232,0.0081,blg-582445,11,title_route,NOT_FINAL_SINGLE_REPORT,False,59.5,blg-1217593,21,4504,False,False
+8024,21,Raad voor de leefomgeving en infrastructuur,ADVIES INNOVATIE IN DE WATERKETEN,2015-04-20,232,0.0025,blg-959440,16,title_route,NOT_FINAL_SINGLE_REPORT,False,13.4,blg-1221788,29,3852,False,False
+8025,21,Raad voor de leefomgeving en infrastructuur,Mainports voorbij,2016-07-01,232,0.0077,blg-582445,11,title_route,NOT_FINAL_SINGLE_REPORT,False,28.6,blg-950972,7,1566,False,False
+8032,21,Raad voor de leefomgeving en infrastructuur,DE STAD ALS GEZONDE HABITAT,2018-04-01,232,0.0105,kst-33118-117,105,title_route,,False,14.1,blg-1229758,54,2829,False,False
+8017,21,Raad voor de leefomgeving en infrastructuur,VERZET DE WISSEL NAAR BETER INTERNATIONAAL REIZIGERSVERVOER PER TREIN,2020-07-01,232,0.0139,kst-29984-903,122,kamerstuk_context,,False,18.4,blg-1229758,54,2007,False,False
+7995,21,Raad voor de leefomgeving en infrastructuur,SPLIJTSTOF? BESLUITEN OVER KERNENERGIE VANUIT WAARDEN,2022-09-01,232,0.0118,blg-1081383,8,title_route,RELATED_BACKGROUND,False,17.7,blg-1218517,46,1131,False,False
+6937,30,Onderwijsraad,Ontwikkeling en ondersteuning van onderwijs,2010-01-01,282,0.8009,blg-54163,33,title_route,FINAL_ADVICE_OR_REPORT,True,63.5,blg-54163,33,1641,False,True
+6908,30,Onderwijsraad,Toezicht en bekostiging bij nieuwe schoolstichting,2010-07-01,282,0.587,blg-163144,13,title_route,FINAL_ADVICE_OR_REPORT,True,43.0,blg-1227098,143,5641,False,True
+6879,30,Onderwijsraad,Excellente leraren als inspirerend voorbeeld,2011-03-01,282,0.0185,blg-102408,4,title_route,FINAL_ADVICE_OR_REPORT,False,43.6,blg-448757,28,1422,False,False
+6831,30,Onderwijsraad,Hoger onderwijs voor de toekomst,2011-09-01,282,0.8213,blg-131794,11,title_route,FINAL_ADVICE_OR_REPORT,True,79.2,kst-30079-122,256,4667,False,True
+6816,30,Onderwijsraad,"Cultuureducatie: leren, creëren, inspireren!",2012-06-01,282,0.0182,blg-131545,70,title_route,,False,44.3,blg-140107,12,191,False,False
+6727,30,Onderwijsraad,Humanisme als richting,2014-03-01,282,0.0063,blg-305211,24,title_route,FINAL_ADVICE_OR_REPORT,False,32.7,blg-805222,37,1145,False,False
+6700,30,Onderwijsraad,Herkenbaar vmbo met sterk vakmanschap,2015-06-01,282,0.7924,blg-533436,32,title_route,FINAL_ADVICE_OR_REPORT,True,71.2,blg-533436,32,21,False,True
+6663,30,Onderwijsraad,Vakmanschap voortdurend in beweging,2016-10-01,282,0.026,blg-184151,15,title_route,FINAL_ADVICE_OR_REPORT,False,100.0,kst-31524-312,181,151,False,False
+6616,30,Onderwijsraad,Toets wijzer,2018-12-01,282,0.0193,blg-818458,77,title_route,,False,35.9,blg-218008,18,1622,False,False
+6518,30,Onderwijsraad,Essentie van extern toezicht,2022-03-01,282,0.0104,kst-31288-1210,162,kamerstuk_context,,False,52.6,blg-1064806,106,287,False,False
+7842,31,Raad voor Cultuur,Het flexibele orkest,2010-02-18,128,0.0058,blg-76404,68,title_route,,False,42.9,blg-881557,4,3358,False,False
+7783,31,Raad voor Cultuur,"Cultuureducatie: leren, creëren, inspireren!",2012-06-01,128,0.0095,blg-233174,65,title_route,,False,48.5,blg-39385,25,762,False,False
+7697,31,Raad voor Cultuur,Ouderen en cultuur,2015-05-01,128,0.0024,blg-456368,28,title_route,FINAL_ADVICE_OR_REPORT,False,71.4,blg-1067604,6,2798,False,False
+7588,31,Raad voor Cultuur,In wankel evenwicht,2018-04-01,128,0.0057,blg-848386,37,title_route,FINAL_ADVICE_OR_REPORT,False,29.3,blg-881557,4,394,False,False
+7619,31,Raad voor Cultuur,Ontwerp voor de toekomst,2018-09-01,128,0.0071,blg-848386,37,title_route,FINAL_ADVICE_OR_REPORT,False,80.0,blg-445031,27,1326,False,False
+7573,31,Raad voor Cultuur,Lees!,2019-06-01,128,0.0025,blg-130188,14,title_route,FINAL_ADVICE_OR_REPORT,False,16.2,blg-90724,40,3097,False,False
+7224,31,Raad voor Cultuur,Onderweg naar overmorgen,2020-11-01,128,0.0046,blg-938877,45,title_route,FINAL_ADVICE_OR_REPORT,False,42.6,blg-1043118,58,635,False,False
+7183,31,Raad voor Cultuur,Investeer in cultuur voor iedereen,2021-04-14,128,0.0059,blg-1050609,59,title_route,,False,61.1,blg-1058019,5,572,False,False
+7157,31,Raad voor Cultuur,Visie Collectie Nederland,2022-02-01,128,0.0035,blg-997831,77,title_route,,False,42.1,blg-90724,40,4073,False,False
+7168,31,Raad voor Cultuur,Over de grens,2022-06-01,128,0.9609,blg-1058019,5,title_route,FINAL_ADVICE_OR_REPORT,True,100.0,blg-1058019,5,159,False,True

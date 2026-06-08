@@ -1,0 +1,180 @@
+{
+  "schema_version": "instellingsbesluit_no_vlam_validation_metrics_v1",
+  "review_json": "matcher\\instellingsbesluit\\artifacts\\reviews\\current_no_vlam_top25_20260512.json",
+  "gold_table": "matcher.instellingsbesluit_gevalideerde_links",
+  "gold_filter": {
+    "link_type": "canoniek",
+    "review_oordeel": [
+      "human_geaccepteerd",
+      "ai_geaccepteerd",
+      "klopt"
+    ]
+  },
+  "definitions": {
+    "candidate_precision": "gold candidate pairs / all candidate pairs in the review output",
+    "precision_at_25": "gold candidate pairs with heuristic rank <= 25 / all candidate pairs with heuristic rank <= 25, grouped by adviescollege phase",
+    "shortlist_precision": "gold candidate pairs marked llm_shortlisted / all llm_shortlisted candidate pairs",
+    "phase_topk_accuracy": "share of gold adviescollege phases with at least one canonical gold document at heuristic rank <= k",
+    "phase_shortlist_accuracy": "share of gold adviescollege phases with at least one canonical gold document in the no-VLAM shortlist that would go to VLAM"
+  },
+  "run_summary": {
+    "candidate_count": 5532,
+    "retrieved_candidate_count": 5532,
+    "shortlist_count": 2063,
+    "judged_count": 0,
+    "extra_row_count": 0,
+    "already_solved_count": 0,
+    "retrieved_college_count": 142,
+    "unsolved_college_count": 142,
+    "solved_source_counts": {},
+    "known_url_validation_enabled": false,
+    "known_url_validation_prompt_version": null,
+    "known_url_validation_target_count": 0,
+    "known_url_validation_completed": 0
+  },
+  "link_level": {
+    "overall": {
+      "gold_links": 151,
+      "candidate_found": 119,
+      "candidate_recall": 0.7880794701986755,
+      "top1_found": 95,
+      "top1_recall": 0.6291390728476821,
+      "top5_found": 114,
+      "top5_recall": 0.7549668874172185,
+      "top10_found": 117,
+      "top10_recall": 0.7748344370860927,
+      "top20_found": 118,
+      "top20_recall": 0.7814569536423841,
+      "top25_found": 118,
+      "top25_recall": 0.7814569536423841,
+      "shortlisted_found": 117,
+      "shortlist_recall": 0.7748344370860927,
+      "median_rank_found": 1,
+      "max_rank_found": 44
+    },
+    "by_category": {
+      "eenmalig": {
+        "gold_links": 96,
+        "candidate_found": 84,
+        "candidate_recall": 0.875,
+        "top1_found": 78,
+        "top1_recall": 0.8125,
+        "top5_found": 84,
+        "top5_recall": 0.875,
+        "top10_found": 84,
+        "top10_recall": 0.875,
+        "top20_found": 84,
+        "top20_recall": 0.875,
+        "top25_found": 84,
+        "top25_recall": 0.875,
+        "shortlisted_found": 84,
+        "shortlist_recall": 0.875,
+        "median_rank_found": 1.0,
+        "max_rank_found": 3
+      },
+      "permanent": {
+        "gold_links": 40,
+        "candidate_found": 22,
+        "candidate_recall": 0.55,
+        "top1_found": 8,
+        "top1_recall": 0.2,
+        "top5_found": 19,
+        "top5_recall": 0.475,
+        "top10_found": 21,
+        "top10_recall": 0.525,
+        "top20_found": 22,
+        "top20_recall": 0.55,
+        "top25_found": 22,
+        "top25_recall": 0.55,
+        "shortlisted_found": 22,
+        "shortlist_recall": 0.55,
+        "median_rank_found": 2.0,
+        "max_rank_found": 16
+      },
+      "tijdelijk": {
+        "gold_links": 15,
+        "candidate_found": 13,
+        "candidate_recall": 0.8666666666666667,
+        "top1_found": 9,
+        "top1_recall": 0.6,
+        "top5_found": 11,
+        "top5_recall": 0.7333333333333333,
+        "top10_found": 12,
+        "top10_recall": 0.8,
+        "top20_found": 12,
+        "top20_recall": 0.8,
+        "top25_found": 12,
+        "top25_recall": 0.8,
+        "shortlisted_found": 11,
+        "shortlist_recall": 0.7333333333333333,
+        "median_rank_found": 1,
+        "max_rank_found": 44
+      }
+    }
+  },
+  "phase_level": {
+    "overall": {
+      "gold_phases": 145,
+      "phases_with_any_candidates": 133,
+      "phase_top1_accuracy": 0.6551724137931034,
+      "phase_top5_accuracy": 0.7724137931034483,
+      "phase_top10_accuracy": 0.7862068965517242,
+      "phase_top20_accuracy": 0.7931034482758621,
+      "phase_top25_accuracy": 0.7931034482758621,
+      "phase_shortlist_accuracy": 0.7931034482758621,
+      "phase_candidate_hit_rate": 0.8
+    },
+    "by_category": {
+      "eenmalig": {
+        "gold_phases": 95,
+        "phases_with_any_candidates": 83,
+        "phase_top1_accuracy": 0.8210526315789474,
+        "phase_top5_accuracy": 0.8736842105263158,
+        "phase_top10_accuracy": 0.8736842105263158,
+        "phase_top20_accuracy": 0.8736842105263158,
+        "phase_top25_accuracy": 0.8736842105263158,
+        "phase_shortlist_accuracy": 0.8736842105263158,
+        "phase_candidate_hit_rate": 0.8736842105263158
+      },
+      "permanent": {
+        "gold_phases": 36,
+        "phases_with_any_candidates": 36,
+        "phase_top1_accuracy": 0.19444444444444445,
+        "phase_top5_accuracy": 0.5,
+        "phase_top10_accuracy": 0.5555555555555556,
+        "phase_top20_accuracy": 0.5833333333333334,
+        "phase_top25_accuracy": 0.5833333333333334,
+        "phase_shortlist_accuracy": 0.5833333333333334,
+        "phase_candidate_hit_rate": 0.5833333333333334
+      },
+      "tijdelijk": {
+        "gold_phases": 14,
+        "phases_with_any_candidates": 14,
+        "phase_top1_accuracy": 0.7142857142857143,
+        "phase_top5_accuracy": 0.7857142857142857,
+        "phase_top10_accuracy": 0.7857142857142857,
+        "phase_top20_accuracy": 0.7857142857142857,
+        "phase_top25_accuracy": 0.7857142857142857,
+        "phase_shortlist_accuracy": 0.7857142857142857,
+        "phase_candidate_hit_rate": 0.8571428571428571
+      }
+    }
+  },
+  "precision": {
+    "candidate_pairs": 5532,
+    "gold_candidate_pairs": 119,
+    "candidate_precision": 0.02151120751988431,
+    "top25_candidate_pairs": 3480,
+    "gold_top25_pairs": 118,
+    "precision_at_25": 0.0339080459770115,
+    "shortlisted_candidate_pairs": 2063,
+    "gold_shortlisted_pairs": 117,
+    "shortlist_precision": 0.05671352399418323
+  },
+  "missing_status_counts": {
+    "shortlisted": 117,
+    "missing_from_candidate_pool": 20,
+    "candidate_not_shortlisted": 2,
+    "no_candidates_for_phase": 12
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "label": "runA_det",
+  "aanwezig_in_officiele": 140,
+  "totaal_full_set": 403,
+  "matcher_gevonden_en_aanwezig": 36,
+  "clean_recall": 0.2571,
+  "clean_recall_wilson": [
+    0.1919,
+    0.3353
+  ],
+  "recall_topk": {
+    "5": {
+      "recall": 0.0429,
+      "wilson": [
+        0.0198,
+        0.0903
+      ],
+      "hits": 6
+    },
+    "10": {
+      "recall": 0.0786,
+      "wilson": [
+        0.0444,
+        0.1352
+      ],
+      "hits": 11
+    },
+    "25": {
+      "recall": 0.1357,
+      "wilson": [
+        0.0886,
+        0.2023
+      ],
+      "hits": 19
+    }
+  },
+  "labeling_precision": 0.1871,
+  "labeling_precision_tn": [
+    32,
+    171
+  ],
+  "per_college": {
+    "Raad voor Cultuur": {
+      "aanwezig": 15,
+      "gevonden": 6,
+      "recall": 0.4,
+      "wilson": [
+        0.1982,
+        0.6425
+      ]
+    },
+    "ROB": {
+      "aanwezig": 16,
+      "gevonden": 3,
+      "recall": 0.1875,
+      "wilson": [
+        0.0659,
+        0.4301
+      ]
+    },
+    "Onderwijsraad": {
+      "aanwezig": 39,
+      "gevonden": 19,
+      "recall": 0.4872,
+      "wilson": [
+        0.3386,
+        0.638
+      ]
+    },
+    "AIV": {
+      "aanwezig": 51,
+      "gevonden": 5,
+      "recall": 0.098,
+      "wilson": [
+        0.0426,
+        0.2098
+      ]
+    },
+    "RLI": {
+      "aanwezig": 19,
+      "gevonden": 3,
+      "recall": 0.1579,
+      "wilson": [
+        0.0552,
+        0.3757
+      ]
+    }
+  }
+}

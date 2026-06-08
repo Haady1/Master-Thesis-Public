@@ -1,0 +1,3 @@
+case_id,advies_id,document_id,adviescollege_id,reason
+10797__10925,10797,10925,69,college_out_of_scope
+10797__10798,10797,10798,69,college_out_of_scope

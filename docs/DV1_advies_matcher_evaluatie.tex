@@ -1,0 +1,95 @@
+\subsubsection{Retrievalprestatie en VLAM-poort van de advies-matcher.}
+De advies-matcher zoekt adviesrapporten van Kaderwet-adviescolleges op in de
+officiële bekendmakingen. Het systeem werkt in twee fasen. Een deterministische
+retrievallaag haalt eerst kandidaat-documenten op door op de collegenaam te zoeken.
+Daarna beoordeelt een VLAM-poort elke kandidaat inhoudelijk en bepaalt of het
+werkelijk een adviesrapport is. De evaluatie hieronder kijkt naar beide fasen, met
+de nadruk op de vraag of het juiste rapport \"uberhaupt in de kandidaatlijst
+verschijnt.
+
+\noindent Als grondwaarheid dienden adviesrapporten die rechtstreeks van de websites
+van vijf grote, permanente colleges zijn binnengehaald: de Adviesraad Internationale
+Vraagstukken, de Raad voor de Leefomgeving en Infrastructuur, de Onderwijsraad, de
+Raad voor het Openbaar Bestuur en de Raad voor Cultuur. Deze bron is onafhankelijk
+van de matcher, want de matcher zoekt uitsluitend in de officiële bekendmakingen.
+Een match werd vastgesteld op tekstovereenkomst, namelijk de Jaccard-similariteit van
+woord-shingles met een drempel van 0,40. Die keuze was nodig omdat hetzelfde document
+in beide bronnen een ander document-ID heeft, maar vrijwel dezelfde tekst.
+
+\noindent Niet elk website-rapport staat ook in de officiële bekendmakingen. Een
+aanwezigheidsscan stelde vast dat 140 van de 403 website-rapporten daar aantoonbaar
+aanwezig zijn. De recall is alleen over deze 140 berekend, zodat een gemist rapport
+een echte fout van de matcher is en geen gat in het corpus.
+
+\noindent De retrievallaag haalde 36 van de 140 aanwezige rapporten op, een recall van
+25,7\,\%. De prestatie verschilt sterk per college, van 48,7\,\% voor de Onderwijsraad
+tot 9,8\,\% voor de Adviesraad Internationale Vraagstukken
+(Tabel~\ref{tab:dv1-advies-eval}). Dit cijfer is robuust. Toen alle zoekroutes
+volledig werden aangezet, waaronder een trage inhoud-route, steeg het aantal
+kandidaten van 1.135 naar 1.461, maar de recall bleef gelijk (24,3\,\%, binnen
+hetzelfde betrouwbaarheidsinterval). Meer kandidaten leverden dus geen hogere recall op.
+
+\noindent De oorzaak is structureel. Van de 140 aanwezige rapporten wordt de officiële
+kopie maar 33 keer als kandidaat opgehaald, op welke positie in de lijst dan ook. De
+overige 107, ofwel 76\,\%, komen nooit in de kandidaatlijst terecht. Dat ligt aan een
+verschil tussen de zoekwijze en de manier waarop de rapporten zijn opgeslagen. De
+routes zoeken op de collegenaam, terwijl de adviesrapporten in de officiële
+bekendmakingen als bijlagen met hun eigen rapporttitel staan. Een datumvenster kan dit
+niet verhelpen, want zo'n filter haalt kandidaten alleen weg en voegt er nooit toe.
+Zoeken op de rapporttitel is evenmin een geldige oplossing, omdat de matcher juist nog
+onbekende adviezen moet ontdekken en de titel dan niet bekend is.
+
+\noindent De VLAM-poort is beoordeeld over de top-25 kandidaten per college, in totaal
+125 documenten. Van de aanwezige rapporten die werden opgehaald en door VLAM
+beoordeeld, kreeg elk het juiste label (VLAM-recall 100\,\%, 33 van de 33). De
+precision van VLAM ligt op ten minste 30,2\,\%, gemeten tegen de website-set. Dat is
+een ondergrens, want die set is onvolledig. Een handmatige controle van 15 van de 81
+niet-gematchte positieven liet zien dat 7 echte adviesrapporten waren, afkomstig van de
+Onderwijsraad en de Raad voor Cultuur en alleen niet aanwezig in de website-steekproef.
+De overige 8 waren terechte valse positieven. Daarmee komt de precision na correctie op
+ongeveer 63\,\%, tegenover 21,3\,\% voor de eerdere regelgebaseerde labeling. De valse
+positieven concentreren zich bij de Adviesraad Internationale Vraagstukken en de Raad
+voor het Openbaar Bestuur, juist de colleges met de laagste recall.
+
+\noindent De recall van de retrievallaag vormt daarmee een bovengrens voor het hele
+systeem. VLAM beoordeelt de opgehaalde kandidaten betrouwbaar, maar kan geen rapporten
+labelen die de retrievallaag niet aanlevert. De uiteindelijke recall kan dus niet boven
+de 25,7\,\% uitkomen die de retrievallaag haalt.
+
+\noindent De schattingen zijn omgeven met onzekerheid. De steekproef is klein
+(140 aanwezige rapporten, en 125 documenten voor de VLAM-beoordeling), en de
+gecorrigeerde precision steunt op een handmatige herclassificatie van 15 items. De
+grondwaarheid uit op websites gepubliceerde rapporten kan selectiebias bevatten. De
+aanwezigheidsscan gebruikte bovendien de eerste 20.000 tekens van elk document, wat de
+aanwezigheid van langere rapporten licht kan onderschatten.
+
+\begin{table}[htbp]
+\centering
+\caption{Prestatie van de advies-matcher op een onafhankelijke grondwaarheid van
+website-rapporten ($N = 140$ aantoonbaar aanwezige rapporten; de VLAM-poort werd over
+125 documenten beoordeeld), met 95\,\%-betrouwbaarheidsintervallen volgens Wilson. Het
+middelste blok geeft de retrieval-recall per college.}
+\label{tab:dv1-advies-eval}
+\footnotesize
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Metriek & Waarde & 95\,\%-BI \\
+\midrule
+Retrieval-recall & 25,7\,\% & 19,2--33,5 \\
+Recall@5         & 4,3\,\%  & 2,0--9,0 \\
+Recall@10        & 6,4\,\%  & 3,4--11,8 \\
+Recall@25        & 14,3\,\% & 9,4--21,0 \\
+\midrule
+Onderwijsraad                                & 48,7\,\% & 33,9--63,8 \\
+Raad voor Cultuur                            & 40,0\,\% & 19,8--64,3 \\
+Raad voor het Openbaar Bestuur               & 18,8\,\% & 6,6--43,0 \\
+Raad voor de Leefomgeving en Infrastructuur  & 15,8\,\% & 5,5--37,6 \\
+Adviesraad Internationale Vraagstukken       & 9,8\,\%  & 4,3--21,0 \\
+\midrule
+VLAM-recall (gevoeligheid)                   & 100\,\%      & 89,6--100 \\
+VLAM-precision (ondergrens)                  & 30,2\,\%     & 22,6--39,1 \\
+VLAM-precision (na handmatige correctie)     & $\approx$\,63\,\% & --- \\
+Regelgebaseerde precision (ter vergelijking) & 21,3\,\%     & --- \\
+\bottomrule
+\end{tabular}
+\end{table}

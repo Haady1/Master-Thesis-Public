@@ -1,0 +1,464 @@
+% DV2 validatietekst voor thesis.
+% Gebaseerd op gecombineerde_validatie_controle.ipynb, run van 2026-06-05.
+% Deze versie houdt de cijfers gelijk, maar schrijft tabellen en uitleg in gewone taal.
+% Bijgewerkt 2026-06-05: cijfers gelijkgetrokken met master_thesis_conceptversie.tex (bevroren 171-scope).
+\section{Validatie}
+\subsection{Validatieopzet}
+\label{subsec:dv2-validatieopzet}
+
+Deze paragraaf beantwoordt de tweede deelvraag: in hoeverre is AI-gedreven documentanalyse betrouwbaar genoeg om relaties in het corpus te meten? Validatie betekent hier niet dat de AI perfect moet zijn. De vraag is praktischer: voor welke onderdelen zijn de AI-uitkomsten sterk genoeg om in de thesis te gebruiken, en bij welke onderdelen is extra controle nodig?
+
+De validatie combineert handmatig gecontroleerde voorbeelden, interne stabiliteit, dekking van de data, gevoeligheidsanalyses en broncontrole. De cijfers komen uit de notebookrun van 5 juni 2026. Engelstalige adviezen zijn buiten deze validatie gehouden (\texttt{include\_english=False}), omdat DV2 hier de Nederlandstalige analysepijplijn toetst.
+
+Lees tabel~\ref{tab:dv2-begrippen} zo: deze begrippen komen later terug in de tabellen. De rechterkolom legt uit wat ze in deze thesis betekenen.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Welke begrippen moet de lezer kennen om de validatietabellen te begrijpen?}
+\label{tab:dv2-begrippen}
+\begin{tabular}{p{0.28\linewidth}p{0.64\linewidth}}
+\hline
+Begrip & Betekenis in deze thesis \\
+\hline
+Golden set & Een kleine set voorbeelden die handmatig is gecontroleerd. De AI wordt met deze menselijke controle vergeleken. \\
+F1-score & Een balans tussen vinden wat gevonden moet worden en niet te veel fout vinden. De score loopt van 0 tot 1; hoger is beter. \\
+95\%-betrouwbaarheidsinterval & De onzekerheidsmarge rond een score. Bij weinig voorbeelden is deze marge vaak breed. \\
+Precision & Van alles wat de AI aanwijst: welk deel klopt volgens de controle? \\
+Recall & Van alles wat volgens de controle aanwezig is: welk deel vindt de AI terug? \\
+Specificiteit & Van de gevallen die niet behandeld zijn: welk deel ziet de AI ook als niet behandeld? \\
+Label-entropie & Hoe sterk de labels verspreid zijn. Dit meet spreiding, niet of een label inhoudelijk juist is. \\
+Waarschuwingen over bronverwijzing & Signalen dat een citaat, passage of bronkoppeling extra controle vraagt. Dit is niet automatisch een inhoudelijke fout. \\
+Groen, oranje, rood & Praktische kwaliteitskleuren: groen is sterk bruikbaar, oranje vraagt nuance, rood is niet geschikt als hoofdbron voor een harde claim. \\
+Opgeschoonde metadata & Metadata die is gestandaardiseerd, bijvoorbeeld zodat datums en namen beter vergelijkbaar zijn. \\
+Ruwe metadata & Metadata zoals die direct uit de bron of AI-output komt, zonder extra opschoning. \\
+\hline
+\end{tabular}
+\end{table}
+
+Lees tabel~\ref{tab:dv2-validatieopzet} zo: deze tabel laat zien welke bronnen en controles in de validatie zijn meegenomen.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Wat is gecontroleerd voor DV2?}
+\label{tab:dv2-validatieopzet}
+\begin{tabular}{p{0.28\linewidth}p{0.24\linewidth}p{0.40\linewidth}}
+\hline
+Controlepunt & Uitkomst & Wat betekent dit? \\
+\hline
+Peildatum & 2026-06-05 & De cijfers horen bij deze notebookrun. Latere data kan de uitkomsten veranderen. \\
+Taalafbakening & Alleen Nederlands & Engelstalige adviezen zijn niet gebruikt in deze validatie. \\
+Actuele adviesvalidatie & 1.374 documenten & Dit is de canonieke alleen-Nederlandstalige adviesvalidatie voor DV2. Oudere aantallen uit eerdere tekstversies moeten hiermee worden vervangen. \\
+Actuele kabinetsreactievalidatie & 419 documenten; 13.165 advieselementen & Dit is de actuele kabinetsreactiebatch, in-scope op de 171-Kaderwet-scope; 1 college valt buiten de Kaderwet en daarmee buiten scope. De oude 39-documentenbatch is alleen nog historische referentie. \\
+Inputbronnen gevonden & 16/16 & Alle verwachte inputbestanden voor deze validatie waren aanwezig. \\
+Bronmatrix & 11/11 gevonden & De notebook kon alle vaste bronpaden en controletabellen vinden. \\
+Nieuwe API-runs & Geen & De validatie gebruikt bestaande output; er zijn geen nieuwe AI-runs gestart. \\
+AI-stappen & Adviesextractie, kabinetsreactie, classificatie/metadata en traceerbaarheid & DV2 toetst meerdere delen van de pipeline, niet alleen een losse AI-taak. \\
+\hline
+\end{tabular}
+\end{table}
+
+De opzet past bij de aard van de onderzoeksvraag. DV2 gaat niet over een enkel document, maar over de vraag of patronen op corpusschaal verantwoord kunnen worden gemeten. Daarom zijn naast accuraatheid ook stabiliteit, ontbrekende gegevens en bronverwijzing belangrijk.
+
+\subsection{Golden-set validatie en accuraatheid}
+\label{subsec:dv2-golden-set-validatie}
+
+Een golden set is een handmatig gecontroleerde set voorbeelden. Deze set is nodig om te kunnen zien hoe dicht de AI bij menselijke codering komt. In deze thesis zijn drie soorten taken getoetst: het terugvinden van aanbevelingen en probleemdefinities, het classificeren van documenten en metadata, en het labelen van kabinetsreacties.
+
+\subsubsection{Adviesextractie: aanbevelingen en probleemdefinities}
+\label{subsubsec:dv2-golden-adviesextractie}
+
+Bij adviesextractie moet de AI de kern uit adviesrapporten halen: aanbevelingen en probleemdefinities. De belangrijkste vraag is daarom of de AI de inhoud terugvindt die ook in de handmatige controle staat. De F1-score vat dat samen in een getal tussen 0 en 1.
+
+Lees tabel~\ref{tab:dv2-golden-set-adviesextractie-hoofd} zo: deze tabel gaat over de hoofdtaak. Een hogere F1-score betekent dat de AI dichter bij de handmatige controle zit.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Hoe goed vindt de AI aanbevelingen en probleemdefinities terug?}
+\label{tab:dv2-golden-set-adviesextractie-hoofd}
+\begin{tabular}{p{0.38\linewidth}p{0.16\linewidth}p{0.16\linewidth}p{0.22\linewidth}}
+\hline
+Wat is gemeten? & Aantal gevallen & Uitkomst & Onzekerheidsmarge \\
+\hline
+Aanbevelingen inhoudelijk teruggevonden & 43 & F1 = 0,910 & 0,903--0,916 \\
+Aanbevelingen als losse items teruggevonden & 43 & F1 = 0,828 & Niet apart berekend \\
+Probleemdefinities inhoudelijk teruggevonden & 43 & F1 = 0,912 & 0,912--0,919 \\
+Probleemdefinities als losse items teruggevonden & 43 & F1 = 0,768 & Niet apart berekend \\
+\hline
+\end{tabular}
+\end{table}
+
+De hoofdtaak is daarmee sterk genoeg voor analyse op corpusschaal.\footnote{De 43 gevallen komen uit 50 geselecteerde adviesrapporten; 7 vielen af door domeinverschil, Engelstalige tekst of latere scraping (zie subsectie~\ref{subsec:dv2-dekking-missingness}).} Vooral de inhoudelijke dekking is hoog. Het onderscheid tussen losse items is iets minder sterk, maar nog bruikbaar voor patronen zolang individuele casussen inhoudelijk worden gecontroleerd.
+
+Niet alle subvelden zijn even betrouwbaar. Sommige velden vragen van de AI dat zij extra context of impliciete verbanden herkent. Daar ontstaan veel meer fouten.
+
+Lees tabel~\ref{tab:dv2-golden-set-adviesextractie-subvelden} zo: deze tabel laat zien welke subvelden niet geschikt zijn als harde meetvariabele.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Welke onderdelen van adviesextractie zijn te zwak voor harde conclusies?}
+\label{tab:dv2-golden-set-adviesextractie-subvelden}
+\begin{tabular}{p{0.38\linewidth}p{0.16\linewidth}p{0.16\linewidth}p{0.22\linewidth}}
+\hline
+Wat is gemeten? & Aantal gevallen & Uitkomst & Onzekerheidsmarge \\
+\hline
+Consultatie-actoren juist teruggevonden & 43 & F1 = 0,216 & 0,171--0,260 \\
+Beleidslogica en koppelingen juist teruggevonden & 43 & F1 = 0,012 & 0,006--0,019 \\
+\hline
+\end{tabular}
+\end{table}
+
+Deze lage scores betekenen niet dat de volledige adviesextractie onbruikbaar is. Wanneer beleidslogica-koppelingen semantisch in plaats van strikte match worden gemeten, bereikt de F1-score ongeveer 0,08---een aanzienlijk verschil met de strikte waarde van 0,012. Dit grote verschil volgt uit een bekend representatie-artefact: de pijplijn produceert geclusterde koppelingen terwijl de gouden set atomische paren bevat, en de semantische verwijzings-ID's wijken af van de canonieke ID's. Dit artefact leidt niet tot inhoudelijk gemis, maar tot een verschil in hoe koppelingen worden geregistreerd. Ze betekenen wel dat deze specifieke subvelden niet als zelfstandige harde variabelen moeten worden gebruikt. Voor DV2 tellen aanbevelingen en probleemdefinities dus als betrouwbaarste output; consultatie-actoren en beleidslogica blijven hoogstens verkennend.
+
+\subsubsection{Classificatie en metadata}
+\label{subsubsec:dv2-golden-classificatie-metadata}
+
+Bij classificatie en metadata gaat het om twee verschillende vragen. De eerste vraag is of de AI het juiste documenttype kiest. De tweede vraag is of metadata, zoals datum of organisatie, goed genoeg aanwezig is om het corpus te ordenen.
+
+Lees tabel~\ref{tab:dv2-golden-set-classificatie} zo: deze tabel gaat alleen over de documentclassificatie. De AI is goed wanneer het label precies overeenkomt met de handmatige controle.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Hoe goed herkent de AI het juiste documenttype?}
+\label{tab:dv2-golden-set-classificatie}
+\begin{tabular}{p{0.32\linewidth}p{0.16\linewidth}p{0.14\linewidth}p{0.18\linewidth}p{0.16\linewidth}}
+\hline
+Wat is gemeten? & Goed / totaal & Uitkomst & Onzekerheidsmarge & Gewone uitleg \\
+\hline
+Documenttype exact goed & 80/101 & 79,2\% & 70,3--86,0\% & De AI koos hetzelfde documenttype als de golden set. \\
+\hline
+\end{tabular}
+\end{table}
+
+De documentclassificatie is daarmee bruikbaar als ordening van het corpus.\footnote{Classificatie en metadata zijn getoetst op een aparte golden set van 101 gecontroleerde documenten; dit verklaart de afwijkende noemer ten opzichte van de andere tabellen.} Voor individuele documenten blijft controle verstandig wanneer een casus inhoudelijk belangrijk is.
+
+Lees tabel~\ref{tab:dv2-golden-set-metadata} zo: deze tabel gaat niet over het documenttype, maar over de vraag of metadata bruikbaar aanwezig is.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Hoe vaak is bruikbare metadata aanwezig?}
+\label{tab:dv2-golden-set-metadata}
+\begin{tabular}{p{0.32\linewidth}p{0.16\linewidth}p{0.14\linewidth}p{0.18\linewidth}p{0.16\linewidth}}
+\hline
+Wat is gemeten? & Goed / totaal & Uitkomst & Onzekerheidsmarge & Gewone uitleg \\
+\hline
+Opgeschoonde metadata aanwezig & 61/101 & 60,4\% & 50,6--69,4\% & Metadata is gestandaardiseerd en daardoor beter vergelijkbaar. \\
+Ruwe metadata aanwezig & 63/101 & 62,4\% & Niet apart berekend & Metadata is aanwezig in oorspronkelijke vorm. \\
+\hline
+\end{tabular}
+\end{table}
+
+Metadata is dus nuttig voor corpusbeschrijving, maar minder sterk dan de inhoudelijke adviesextractie. Dat betekent dat metadata geschikt is voor ordening en controle, maar niet zonder extra controle voor harde uitspraken over individuele documenten.
+
+\subsubsection{Kabinetsreactie-agent: verwerkingslabels}
+\label{subsubsec:dv2-golden-kabinetsreactie}
+
+De kabinetsreactie-agent krijgt per advieselement de vraag wat het kabinet ermee doet. Daarbij zijn twee niveaus belangrijk. Eerst: ziet de AI of een advies wel of niet behandeld wordt? Daarna: kiest de AI ook het precieze verwerkingslabel uit zes mogelijke labels?
+
+Lees tabel~\ref{tab:dv2-golden-set-kabinetsreactie-binair} zo: deze tabel gaat alleen over de simpele vraag of een advieselement behandeld wordt.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Herkent de AI of het kabinet een advies behandelt?}
+\label{tab:dv2-golden-set-kabinetsreactie-binair}
+\begin{tabular}{p{0.30\linewidth}p{0.14\linewidth}p{0.13\linewidth}p{0.18\linewidth}p{0.19\linewidth}}
+\hline
+Wat is gemeten? & Goed / totaal & Uitkomst & Onzekerheidsmarge & Gewone uitleg \\
+\hline
+Behandelde advieselementen gevonden & 68/77 & 88,3\% & 79,3--93,7\% & Als iets behandeld is, ziet de AI dat meestal ook. \\
+Niet-behandelde advieselementen juist herkend & 5/10 & 50,0\% & 23,7--76,3\% & De noemer is klein; deze score is onzeker. \\
+\hline
+\end{tabular}
+\end{table}
+
+Voor de simpele vraag of het kabinet iets behandelt, presteert de AI dus redelijk sterk aan de kant van behandelde adviezen. Niet-behandelde adviezen zijn lastiger, mede omdat er maar tien voorbeelden in deze controle zitten.\footnote{De 87 advieselementen uit de golden set vallen hier uiteen in 77 die volgens de handmatige controle wel behandeld zijn en 10 die niet behandeld zijn; samen 87.}
+
+Lees tabel~\ref{tab:dv2-golden-set-kabinetsreactie-label} zo: deze tabel gaat over de moeilijkere vraag of de AI precies hetzelfde verwerkingslabel kiest als de golden set.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Hoe vaak kiest de AI precies het juiste kabinetsreactielabel?}
+\label{tab:dv2-golden-set-kabinetsreactie-label}
+\begin{tabular}{p{0.30\linewidth}p{0.14\linewidth}p{0.13\linewidth}p{0.18\linewidth}p{0.19\linewidth}}
+\hline
+Wat is gemeten? & Goed / totaal & Uitkomst & Onzekerheidsmarge & Gewone uitleg \\
+\hline
+Precieze labelkeuze uit zes labels & 46/87 & 52,9\% & 42,1--63,4\% & De AI kiest iets vaker wel dan niet exact hetzelfde label als de golden set. \\
+\hline
+\end{tabular}
+\end{table}
+
+Dit is belangrijk voor de interpretatie van DV2. De AI is bruikbaar om op grotere schaal patronen in kabinetsreacties te vinden, maar individuele precieze labels moeten voorzichtig worden gelezen. Vooral wanneer het verschil tussen labels inhoudelijk belangrijk is, blijft broncontrole nodig.
+
+Bij deze 52,9\% hoort een belangrijke kanttekening over de manier waarop de golden set is getrokken. De set is namelijk gebalanceerd \emph{per voorspeld AI-label}: per label zijn ongeveer acht voorbeelden gekozen. Daardoor liggen de kolomtotalen van de verwarringstabel vast (24, 24, 16, 8, 8 en 8) en weerspiegelt de set niet de natuurlijke verdeling in het corpus, waarin de veelvoorkomende labels veel zwaarder wegen. Dat heeft twee gevolgen. Ten eerste is de \emph{precisie} per AI-label wel zuiver geschat: als de AI een label kiest, klopt dat in het gemeten percentage van de gevallen. Ten tweede zijn de \emph{recall} per label en de exacte-matchscore van 52,9\% geconditioneerd op de AI-labels. Ze beschrijven deze gebalanceerde testset, maar zijn geen schatting voor het corpus als geheel. De 52,9\% moet daarom worden gelezen als ``op de label-gebalanceerde testset'', niet als corpusbrede accuratesse. Wie een populatiebrede recall wil, moet herwegen naar de corpusverdeling of een tweede steekproef trekken die op de handmatige waarheid is gestratificeerd.
+
+\subsection{Foutpatronen en labelkwaliteit}
+\label{subsec:dv2-foutpatronen-labelkwaliteit}
+
+Accuraatheid alleen zegt niet genoeg. Voor DV2 is ook belangrijk welke fouten de AI maakt. Een fout waarbij twee verwante labels worden verwisseld is minder ernstig dan een fout waarbij een advies volledig verkeerd wordt gelezen. Daarom kijkt deze validatie naar labelverwarring en naar label-entropie. Label-entropie meet hoe sterk labels verspreid zijn; het is dus een waarschuwing voor mogelijke scheefheid, geen bewijs dat een label fout is.
+
+Lees tabel~\ref{tab:dv2-foutpatronen} zo: deze tabel vat de belangrijkste foutpatronen in gewone taal samen.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Waar maakt de AI vooral fouten?}
+\label{tab:dv2-foutpatronen}
+\begin{tabular}{p{0.28\linewidth}p{0.28\linewidth}p{0.36\linewidth}}
+\hline
+Wat is gecontroleerd? & Wat kwam eruit? & Wat betekent dit voor de thesis? \\
+\hline
+Vaakste verwarring bij kabinetsreacties & 11 gevallen van substantieel naar retorisch & De AI ziet soms wel dat het kabinet reageert, maar kiest dan een te zwak inhoudelijk label. \\
+Niet-behandeld blijft lastig & 5/10 exact goed; grootste verwarring naar retorisch en ambigu & Soms is zichtbaar dat het kabinet reageert, maar blijft onduidelijk of dat als behandeling telt. Dit vraagt handmatige controle bij casusclaims. \\
+Adviesextractie met lage spreiding & $\min H = -0{,}000$ & Sommige labels komen bijna nooit voor. Dat maakt die labels minder informatief als meetvariabele. \\
+Documentclassificatie met lage spreiding & $\min H = 0{,}217$ & Ook bij documenttypen zijn enkele categorieen erg scheef verdeeld. \\
+Machineleesbare scoretabel & 14 rijen & De details zijn opgeslagen voor herhaalbare controle, niet alleen als losse tekst. \\
+\hline
+\end{tabular}
+\end{table}
+
+Voor de kabinetsreactie-labels is vooral de verwarring tussen inhoudelijke verwerking en meer retorische verwerking belangrijk. Dat raakt direct aan de interpretatie van doorwerking. Daarom zijn deze labels bruikbaar op geaggregeerd niveau, maar minder geschikt als ongecontroleerde uitspraak over een individueel advieselement.
+
+Lees tabel~\ref{tab:dv2-confusion-matrix-kabinetsreactie} zo: elke rij is het label uit de handmatige controle. Elke kolom is het label dat de AI koos. Getallen op de diagonaal zijn overeenkomsten; getallen buiten de diagonaal zijn verwarringen.
+
+\begin{table}[htbp]
+\centering
+\scriptsize
+\caption{Waar verwart de AI kabinetsreactielabels?}
+\label{tab:dv2-confusion-matrix-kabinetsreactie}
+\begin{tabular}{lrrrrrr}
+\hline
+Golden-set label & substant. & proced. & retor. & afgewezen & niet beh. & ambigu \\
+\hline
+substantieel & 18 & 4 & 11 & 0 & 1 & 3 \\
+procedureel & 4 & 9 & 3 & 0 & 0 & 1 \\
+retorisch & 1 & 2 & 7 & 1 & 1 & 1 \\
+afgewezen & 0 & 0 & 1 & 7 & 1 & 1 \\
+niet behandeld & 0 & 1 & 2 & 0 & 5 & 2 \\
+ambigu & 0 & 0 & 0 & 0 & 0 & 0 \\
+\hline
+\end{tabular}
+\end{table}
+
+In deze tabel betekent \emph{substant.} substantieel, \emph{proced.} procedureel, \emph{retor.} retorisch en \emph{niet beh.} niet behandeld. De golden set had geen ambigu-meerderheid; daarom is de laatste rij nul. De grootste verwarring is substantieel naar retorisch (11 keer). Dat betekent dat de AI meestal wel een reactie ziet, maar niet altijd precies goed inschat hoe inhoudelijk die reactie is. Let op: de totaal van deze tabel is nu 87 elementen (tidligere 88), vanwege scope-aanpassingen.
+
+Om te zien welke labels los betrouwbaar zijn, is per label de precision, recall en F1-score berekend, telkens met een 95\%-onzekerheidsmarge. De marges op precision en recall zijn berekend met het Wilson-interval; de marge op de F1-score met een bootstrap van 10.000 herhalingen.
+
+Lees tabel~\ref{tab:dv2-perlabel-kabinetsreactie} zo: per label staat hoe vaak de AI het goed had, met de onzekerheidsmarge erbij. De marges zijn breed omdat de zeldzame labels maar weinig voorbeelden hebben.
+
+\begin{table}[htbp]
+\centering
+\scriptsize
+\caption{Hoe betrouwbaar is elk kabinetsreactielabel afzonderlijk?}
+\label{tab:dv2-perlabel-kabinetsreactie}
+\begin{tabular}{p{0.20\linewidth}p{0.10\linewidth}p{0.20\linewidth}p{0.20\linewidth}p{0.20\linewidth}}
+\hline
+Label & Aantal (waarheid) & Precision (95\%) & Recall (95\%) & F1 (95\%) \\
+\hline
+substantieel & 37 & 0,783 (0,59--0,90) & 0,486 (0,33--0,65) & 0,600 (0,43--0,74) \\
+procedureel & 17 & 0,562 (0,33--0,77) & 0,529 (0,31--0,74) & 0,545 (0,31--0,73) \\
+retorisch & 13 & 0,292 (0,15--0,49) & 0,538 (0,29--0,77) & 0,378 (0,17--0,57) \\
+afgewezen & 10 & 0,875 (0,53--0,98) & 0,700 (0,40--0,89) & 0,778 (0,50--0,96) \\
+niet behandeld & 10 & 0,625 (0,31--0,86) & 0,500 (0,24--0,76) & 0,556 (0,22--0,80) \\
+\hline
+\end{tabular}
+\end{table}
+
+De golden set bevatte geen voorbeelden waarvan ambigu de handmatige waarheid was; daarom staat dit label niet in de tabel. De tabel laat zien dat vooral afgewezen (F1 = 0,778) en substantieel (F1 = 0,600) redelijk betrouwbaar zijn. Procedureel, niet behandeld en vooral retorisch (F1 = 0,378) hebben zulke brede marges dat ze los niet sterk genoeg zijn voor een harde uitspraak. Deze marges gelden bovendien voor de label-gebalanceerde steekproef: de recall en F1-score zijn geconditioneerd op de AI-labels (zie subsectie~\ref{subsubsec:dv2-golden-kabinetsreactie}). De precision is wel zuiver per AI-label te lezen.
+
+\subsection{Interne stabiliteit}
+\label{subsec:dv2-interne-stabiliteit}
+
+Interne stabiliteit gaat over de vraag of dezelfde pipeline ongeveer dezelfde uitkomst geeft wanneer de taak opnieuw wordt uitgevoerd. Dat is belangrijk omdat een meetinstrument niet alleen accuraat moet zijn, maar ook stabiel. Een instabiele AI-stap kan op corpusschaal patronen laten zien die eigenlijk door toeval in de run ontstaan.
+
+Lees tabel~\ref{tab:dv2-stabiliteitsbegrippen} zo: deze tabel vertaalt de technische stabiliteitsmaten naar gewone taal.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Wat betekenen de stabiliteitsmaten?}
+\label{tab:dv2-stabiliteitsbegrippen}
+\begin{tabular}{p{0.28\linewidth}p{0.64\linewidth}}
+\hline
+Stabiliteitsmaat & Gewone uitleg \\
+\hline
+PEO & Percentage exact hetzelfde oordeel bij herhaling. Hoger is stabieler. \\
+VC & Hoeveel variatie er tussen runs zit. Lager is stabieler. \\
+Krippendorff's $\alpha$ & Maat voor overeenstemming tussen coderingen. Hoger betekent meer overeenstemming. \\
+Retry-wisselaars & Gevallen waarbij het label verandert na opnieuw proberen. Minder wisselaars is stabieler. \\
+Test-hertest & Dezelfde taak opnieuw draaien en vergelijken of de uitkomst hetzelfde blijft. \\
+\hline
+\end{tabular}
+\end{table}
+
+Lees tabel~\ref{tab:dv2-interne-stabiliteit} zo: de tabel laat per AI-stap zien of herhaling ongeveer dezelfde uitkomsten geeft.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Geeft dezelfde AI-stap opnieuw ongeveer dezelfde uitkomst?}
+\label{tab:dv2-interne-stabiliteit}
+\begin{tabular}{p{0.24\linewidth}p{0.34\linewidth}p{0.34\linewidth}}
+\hline
+AI-stap & Wat kwam eruit? & Wat betekent dit? \\
+\hline
+Adviesextractie & Over 10 documenten in drie runs: rapportlabels grotendeels stabiel (PEO 0,92--1,00), lage-variantie-labels hebben misleidend lage $\alpha$ (lees PEO); tellingen acceptabel variabel (VC ~0,22--0,24), itemset-Jaccard lager (aanbevelingen 0,474) als ondergrens. & De hoofdextractie is stabiel genoeg voor corpusanalyse, al blijft de onzekerheidsmarge zichtbaar door de kleine herhaalset. \\
+Kabinetsreactie & Huidige test-hertest: 10 cases, 3 runs per case; gemiddelde overeenkomst 0,2537 en Krippendorff's $\alpha$ 0,1847. In de retry-controle zijn 292 gemeenschappelijke elementen gevonden: 93 stabiel en 199 wisselend. In de top-20 wisselaars bevatten 26/60 labelparen het label onduidelijk. & De fijne verwerkingslabels zijn laag stabiel. Vooral onduidelijk komt vaak terug in wisselende labelparen. \\
+Classificatie/metadata & 15 test-hertest documenten. Macro-F1 = 0,947; macro precisie = 0,937; macro recall = 1,000; oude macro-F1 = 0,611. & Documentclassificatie is sterk verbeterd en stabieler dan in eerdere output. \\
+\hline
+\end{tabular}
+\end{table}
+
+De conclusie is dat de AI-stappen niet allemaal even stabiel zijn. Adviesextractie en documentclassificatie zijn het sterkst. Kabinetsreactie-labels zijn bruikbaar voor patronen, maar individuele labels, vooral retorische verwerking, vragen voorzichtigheid.
+
+\subsection{Dekking en ontbrekende gegevens}
+\label{subsec:dv2-dekking-missingness}
+
+Een betrouwbare meting vraagt niet alleen goede labels, maar ook voldoende data. Als bepaalde typen documenten vaker ontbreken dan andere, kunnen de conclusies scheef worden. Daarom controleert deze validatie hoeveel data beschikbaar is en of ontbrekende gegevens willekeurig lijken.
+
+Lees tabel~\ref{tab:dv2-dekking-missingness} zo: de tabel laat zien waar de dataset compleet genoeg is en waar ontbrekende gegevens extra voorzichtigheid vragen.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Zijn er genoeg geldige gegevens voor DV2?}
+\label{tab:dv2-dekking-missingness}
+\begin{tabular}{p{0.30\linewidth}p{0.20\linewidth}p{0.42\linewidth}}
+\hline
+Wat is gecontroleerd? & Oordeel & Uitkomst \\
+\hline
+DV1 corpuscontext & Groen & 2.203 Nederlandstalige documenten in de 171-Kaderwet-scope, 1.439 adviesrapporten, 130 van 171 colleges met adviesrapport. Dit is corpuscontext en niet hetzelfde meetniveau als de actuele DV2-adviesvalidatie van 1.374 Nederlandstalige adviesrapporten. \\
+Golden-set adviesextractie & Groen/oranje & 43/50 documenten gekoppeld en gevalideerd. 7 niet gekoppelde documenten zijn herleid tot domeinverschil, Engelstalige tekst of nieuwe scraping. Dit schaadt de hoofdvalidatie niet. \\
+Kabinetsreacties & Oranje & Non-random toets: $\chi^2=250{,}3$, $p<0{,}001$, Cramer's V = 0,701. Ontbrekende of onzekere labels zijn dus niet willekeurig verdeeld. \\
+Classificatie/metadata & Oranje & Opgeschoonde metadata: 11/17 velden volledig; ruwe metadata: 10/17 velden volledig. Laagste velden: 93,9\% en 84,2\%. \\
+Traceerbaarheid & Oranje & 10.637 waarschuwingen over bronverwijzing op 13.253 records. Dit vraagt broncontrole, maar is niet automatisch een inhoudelijke fout. \\
+\hline
+\end{tabular}
+\end{table}
+
+De niet gekoppelde adviesextractiegevallen zijn gs017, gs019, gs028, gs031, gs037, gs048 en gs049. De reden is vooral dat deze gevallen buiten de directe validatiescope vallen of door nieuwe verwerking later zijn toegevoegd. Voor de thesis betekent dit dat de hoofdmetingen voldoende dekking hebben, maar dat kabinetsreactie-labels en bronverwijzingen met meer voorzichtigheid moeten worden gebruikt.
+
+\subsection{Gevoeligheid van de resultaten}
+\label{subsec:dv2-robuustheid-sensitiviteit}
+
+Gevoeligheidsanalyse controleert of conclusies overeind blijven wanneer keuzes in de analyse iets veranderen. Als een conclusie alleen ontstaat bij een zeer specifieke instelling, is die conclusie minder sterk. Daarom gebruikt de validatie praktische kwaliteitskleuren.
+
+Lees tabel~\ref{tab:dv2-kleurcodes} zo: deze kleuren zijn gebruiksadviezen voor de thesis.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Wat betekenen groen, oranje en rood in deze validatie?}
+\label{tab:dv2-kleurcodes}
+\begin{tabular}{p{0.20\linewidth}p{0.72\linewidth}}
+\hline
+Kleur & Betekenis \\
+\hline
+Groen & De uitkomst is sterk genoeg om als hoofdbevinding te gebruiken. \\
+Oranje & De uitkomst is bruikbaar, maar alleen met nuance of extra broncontrole. \\
+Rood & De uitkomst is niet geschikt als zelfstandige basis voor een harde claim. \\
+\hline
+\end{tabular}
+\end{table}
+
+Lees tabel~\ref{tab:dv2-robuustheid} zo: de tabel laat zien welke conclusies stabiel blijven en welke gevoelig zijn voor keuzes in de analyse.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Blijven de conclusies overeind bij andere keuzes?}
+\label{tab:dv2-robuustheid}
+\begin{tabular}{p{0.26\linewidth}p{0.30\linewidth}p{0.36\linewidth}}
+\hline
+Wat is gecontroleerd? & Wat verandert er? & Wat betekent dit? \\
+\hline
+Adviesextractie & Dekkingsdrempels $\geq$0,75, $\geq$0,85 en $\geq$0,95 blijven groen of oranje/groen. & De hoofdconclusie over aanbevelingen en probleemdefinities is robuust. \\
+Kabinetsreacties & De huidige test-hertest geeft een lage stabiliteit: Krippendorff's $\alpha=0{,}1847$ in de 10x3 parallel-run. De top-20 retry-wisselaars laat zien dat 26/60 labelparen het label onduidelijk bevatten. & De algemene patronen blijven bruikbaar, maar fijne labels per advieselement moeten voorzichtig worden gebruikt. \\
+Classificatie/metadata & Oude output macro-F1 0,611 tegenover nieuwe output macro-F1 0,947. & De nieuwe classificatie-output is duidelijk sterker dan de oude. Gebruik dus de actuele output. \\
+Interactiviteit en meetkwaliteit & Veel consultatie hangt samen met lagere meetkwaliteit: Q1 laag heeft 293 groen en 33 oranje; Q4 hoog heeft 84 groen en 243 oranje. De hulpmaten hangen matig samen met het handmatige consultatieniveau: Spearman $\rho=0{,}368$ en $\rho=0{,}337$. & Belangrijk voor het lezen van de inhoudelijke resultaten: interactiviteit kan tegelijk onderwerp van analyse en bron van meetonzekerheid zijn. \\
+Lengte en complexiteit & Oranje adviesrapporten zijn langer dan groene rapporten: mediaan 23.810 woorden tegenover 15.675. Ook het aantal unieke actoren ligt hoger: mediaan 11 tegenover 6. & Lange en complexe rapporten vragen extra controle; de meetkwaliteit is niet volledig gelijk verdeeld. \\
+College-effect & Het aandeel groen verschilt sterk per college: 13,3\% bij de Adviesraad voor wetenschap, technologie en innovatie en 36,5\% bij de Onderwijsraad, tegenover 89,7\% bij de Gezondheidsraad en 80,0\% bij het College voor de Rechten van de Mens. & Vergelijkingen tussen colleges vragen nuance, omdat meetkwaliteit niet overal even hoog is. \\
+Periode-effect & De verdeling over 2005--2024 is redelijk stabiel; er is geen duidelijke periodebreuk zichtbaar. & Dit verkleint de zorg dat verschillen in meetkwaliteit vooral door kabinetsperiode komen. \\
+\hline
+\end{tabular}
+\end{table}
+
+De gevoeligheidsanalyse ondersteunt vooral het gebruik van adviesextractie en documentclassificatie. Voor kabinetsreacties blijft de hoofdvraag bruikbaar, maar precieze labelverdelingen moeten in de thesis voorzichtig worden geformuleerd. Bij de inhoudelijke resultaten (DV3) is extra voorzichtigheid nodig, omdat interactiviteit en complexiteit samenhangen met meetkwaliteit.
+
+\subsection{Traceerbaarheid en broncontrole}
+\label{subsec:dv2-traceerbaarheid}
+
+Traceerbaarheid betekent dat een AI-uitkomst terug te koppelen is aan bronmateriaal. Dat is belangrijk omdat de thesis niet alleen wil tellen, maar ook wil kunnen uitleggen waar een telling op gebaseerd is. Een waarschuwing over bronverwijzing betekent niet automatisch dat de inhoud fout is. Het betekent dat de koppeling met de bron extra controle nodig heeft.
+
+Lees tabel~\ref{tab:dv2-traceerbaarheid-begrippen} zo: deze termen geven aan hoe sterk een bronpassage een AI-uitkomst ondersteunt.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Hoe moet bronondersteuning worden gelezen?}
+\label{tab:dv2-traceerbaarheid-begrippen}
+\begin{tabular}{p{0.28\linewidth}p{0.64\linewidth}}
+\hline
+Bronoordeel & Gewone betekenis \\
+\hline
+Ondersteunt & De bronpassage ondersteunt de AI-uitkomst voldoende. \\
+Deels & De bronpassage helpt, maar is niet volledig of niet precies genoeg. \\
+Niet te beoordelen & Op basis van de beschikbare passage kan de controle niet goed worden gedaan. \\
+\hline
+\end{tabular}
+\end{table}
+
+Lees tabel~\ref{tab:dv2-traceerbaarheid} zo: deze tabel laat zien of de AI-uitkomsten controleerbaar blijven via bronnen.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Zijn de AI-uitkomsten terug te vinden in de bronnen?}
+\label{tab:dv2-traceerbaarheid}
+\begin{tabular}{p{0.30\linewidth}p{0.20\linewidth}p{0.42\linewidth}}
+\hline
+Wat is gecontroleerd? & Uitkomst & Wat betekent dit? \\
+\hline
+Bronmatrix & 11/11 gevonden & Alle verwachte validatiebronnen zijn aanwezig. \\
+Bronpassages & 13/18 ondersteunt; 4/18 deels; 1/18 niet te beoordelen & De meeste gecontroleerde passages ondersteunen de AI-uitkomst, maar niet alles is volledig hard te maken. \\
+S5-steekproef & 5/5 opgenomen & De steekproef is aanwezig en controleerbaar. \\
+Waarschuwingen over bronverwijzing & 10.637/13.253 records & Veel records vragen broncontrole. Dit is een kwaliteitswaarschuwing, geen automatisch bewijs van inhoudelijke fouten. \\
+Bronconflicten in oude rapporttekst & 5/5 & Oude rapporttekst bevatte bekende conflicten met actuele machine-output; de thesis moet daarom de actuele output gebruiken. \\
+\hline
+\end{tabular}
+\end{table}
+
+Voor DV2 betekent dit dat traceerbaarheid aanwezig is, maar niet foutloos. De validatie maakt vooral zichtbaar waar broncontrole nodig is. Dit past bij de onderzoeksopzet: AI meet patronen op schaal, terwijl broncontrole nodig blijft voor belangrijke interpretaties en voorbeelden.
+
+\subsection{Eindoordeel per AI-stap}
+\label{subsec:dv2-eindoordeel}
+
+Het eindoordeel is geen losse statistische maat. Het is een praktisch gebruiksadvies voor de thesis. \emph{Voorzichtig} betekent dat de uitkomst bruikbaar is, maar niet zonder nuance. \emph{Verkennend} betekent dat de uitkomst alleen geschikt is om mogelijke patronen te signaleren, niet om harde conclusies op te bouwen.
+
+Lees tabel~\ref{tab:dv2-eindoordeel} zo: deze tabel zegt waarvoor elke AI-stap verantwoord kan worden gebruikt en wanneer extra controle nodig is.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Waarvoor kan elke AI-stap verantwoord worden gebruikt?}
+\label{tab:dv2-eindoordeel}
+\begin{tabular}{p{0.20\linewidth}p{0.27\linewidth}p{0.25\linewidth}p{0.20\linewidth}}
+\hline
+AI-stap & Verantwoord gebruik & Niet gebruiken voor & Wanneer extra controle nodig is \\
+\hline
+Adviesextractie & Corpusbrede analyse van aanbevelingen en probleemdefinities. & Harde conclusies over consultatie-actoren of beleidslogica. & Bij individuele casussen en bij zwakke subvelden. \\
+Kabinetsreactie & Patronen in hoe kabinetten adviezen behandelen. & Ongecontroleerde harde claims over precieze labels per advieselement. & Bij retorisch/substantieel, niet behandeld, of veel bronwaarschuwingen. \\
+Classificatie en metadata & Ordening van het corpus en beschrijving van documenttypen. & Volledige metadata als harde bron zonder controle. & Bij ontbrekende, ruwe of politiek belangrijke metadata. \\
+Traceerbaarheid & Controleren of AI-uitkomsten aan bronnen gekoppeld kunnen worden. & Vervanging van inhoudelijke interpretatie door de onderzoeker. & Bij waarschuwingen over bronverwijzing en bij oude bronconflicten. \\
+\hline
+\end{tabular}
+\end{table}
+
+Samengevat is de AI-pipeline betrouwbaar genoeg om tekstuele relaties op corpusschaal te meten, vooral voor aanbevelingen, probleemdefinities, documentclassificatie en brede patronen in kabinetsreacties. De pipeline is niet betrouwbaar genoeg om zonder controle alle individuele verwerkingslabels, zwakke subvelden of theoretische labels als harde uitkomsten te behandelen. De juiste toepassing is daarom: AI voor schaal en patroonherkenning, broncontrole voor gevoelige interpretaties en casusclaims.

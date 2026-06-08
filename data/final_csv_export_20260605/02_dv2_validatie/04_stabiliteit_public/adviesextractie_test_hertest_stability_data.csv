@@ -1,0 +1,13 @@
+variabele;type;peo_gem;krippendorff_alpha;detail
+orde_van_verandering;ordinal;1.000;1.000;1;constant (1 waarde; α n.v.t.)
+operationaliteit_rapport;ordinal;0.917;0.282;2;hoge overeenstemming; α gedeflateerd (lage variantie)
+beinvloedbaarheid_rapport;ordinal;1.000;1.000;1;constant (1 waarde; α n.v.t.)
+beleidsreikwijdte;nominal;0.967;0.865;2;betrouwbaar
+veldconsultatie_niveau;ordinal;0.967;0.000;2;hoge overeenstemming; α gedeflateerd (lage variantie)
+is_co_advies;nominal;1.000;1.000;1;constant (1 waarde; α n.v.t.)
+scenarios_aanwezig;nominal;1.000;1.000;1;constant (1 waarde; α n.v.t.)
+beleidsopties_aanwezig;nominal;0.933;-0.037;2;hoge overeenstemming; α gedeflateerd (lage variantie)
+aanbevelingen_aantal;integer_VC;0.218;;;acceptabel
+probleemdefinities_aantal;integer_VC;0.240;;;acceptabel
+aanbevelingen_set;jaccard;0.474;;itemstabiliteit
+probleemdefinities_set;jaccard;0.003;;itemstabiliteit

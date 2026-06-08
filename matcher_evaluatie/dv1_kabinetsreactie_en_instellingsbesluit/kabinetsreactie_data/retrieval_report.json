@@ -1,0 +1,49 @@
+{
+  "schema_version": "kabinetsreactie_retrieval_pilot_v1",
+  "advies_count": 69,
+  "advies_with_candidates": 69,
+  "advies_zonder_kandidaat": 0,
+  "top1_correct": 39,
+  "top1_fout": 30,
+  "precision_at_1": 0.5652,
+  "precision_at_1_ci95": [
+    0.4479,
+    0.6757
+  ],
+  "recall_at_1": 0.5652,
+  "recall_at_1_ci95": [
+    0.4479,
+    0.6757
+  ],
+  "f1_top1": 0.5652,
+  "recall_at_k": {
+    "recall@1": 0.5652,
+    "recall@3": 0.7536,
+    "recall@10": 0.8696,
+    "recall@25": 0.8841,
+    "recall@50": 0.8841
+  },
+  "recall_at_k_ci95": {
+    "recall@1": [
+      0.4479,
+      0.6757
+    ],
+    "recall@3": [
+      0.6404,
+      0.8401
+    ],
+    "recall@10": [
+      0.7703,
+      0.9298
+    ],
+    "recall@25": [
+      0.7875,
+      0.9401
+    ],
+    "recall@50": [
+      0.7875,
+      0.9401
+    ]
+  },
+  "mrr": 0.6749
+}

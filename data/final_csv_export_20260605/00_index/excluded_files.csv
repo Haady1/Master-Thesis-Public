@@ -1,0 +1,18 @@
+bronpad,status,reden
+thesis/Analyse/data/dv1/*.csv,exclude,Oude DV1-export van 2026-06-04; sluit niet aan op finale 171/1.439-scope.
+thesis/Analyse/data/dv1_prefix_backup_20260604_174801/*.csv,exclude,Backup van oude DV1-export; niet leidend.
+outputs/deelvraag1_corpus_1997_2025/**/*.csv,exclude,Oude/ruwe DV1-runs; niet leidend voor finale thesis.
+thesis/Analyse/DV2_validatie_bronnen/01_DV1_corpuscontext_20260603/*.csv,exclude,Oude DV1-context met niet-canonieke aantallen.
+matcher/parlementair_v2/analyse/vlam_parlementaire_set_merged.csv,exclude,Oude parlementaire CSV geeft 2.172/3.336; thesis gebruikt live SQL 2.170/3.332.
+matcher/parlementair_v2/analyse/vlam_parlementaire_validatie_per_college.csv,exclude,Hoort bij oude parlementaire samenvatting; niet leidend.
+thesis/Analyse/DV2_validatie_bronnen/01b_adviesvalidatie_171_frozen_20260605/df_docs.csv,exclude,Restricted raw: bevat JSON/actorvelden; publieke geschoonde variant is opgenomen.
+thesis/Analyse/DV2_validatie_bronnen/01b_adviesvalidatie_171_frozen_20260605/df_aanbevelingen.csv,exclude,Restricted raw: bevat beschrijving/bronfragmenten; publieke geschoonde variant is opgenomen.
+thesis/Analyse/DV2_validatie_bronnen/01b_adviesvalidatie_171_frozen_20260605/df_problemen.csv,exclude,Restricted raw: bevat beschrijving/bronfragmenten; publieke geschoonde variant is opgenomen.
+thesis/Analyse/DV2_validatie_bronnen/05_reliability_test_hertest/retry_wisselaars_top20.csv,exclude,Restricted raw: bevat handmatige diagnose/tekstsnippets; niet publiek opgenomen.
+thesis/Analyse/DV2_validatie_bronnen/08_classificatie_metadata_reproduceerbaarheid_20260507/classification_consistency.csv,exclude,Restricted raw: bevat run_waarde-kolommen en AI-redeneringen.
+thesis/Analyse/DV2_validatie_bronnen/08_classificatie_metadata_reproduceerbaarheid_20260507/metadata_field_consistency.csv,exclude,Restricted raw: bevat run_waarde-kolommen en AI-redeneringen.
+thesis/Analyse/DV2_validatie_bronnen/08_classificatie_metadata_reproduceerbaarheid_20260507/metadata_evidence_audit.csv,exclude,Restricted raw: evidence/redenaties; niet nodig voor eindtabellen.
+thesis/Analyse/DV2_validatie_bronnen/08_classificatie_metadata_reproduceerbaarheid_20260507/summary_consistency.csv,exclude,Restricted raw: vrije samenvattingsvelden; niet nodig voor eindtabellen.
+thesis/Analyse/DV2_validatie_bronnen/08_classificatie_metadata_reproduceerbaarheid_20260507/verifier_cross_main_audit.csv,exclude,Restricted raw: audit/redenering; niet nodig voor eindtabellen.
+thesis/Analyse/DV2_validatie_bronnen/06_kabinetsreactie_golden_set_20260604/batch_*_merged.csv,exclude,Ruwe batchbouw; finale publieke bestanden zijn golden_set en golden_vs_run.
+thesis/Analyse/DV2_validatie_bronnen/06_kabinetsreactie_golden_set_20260604/aggregated_verdicts.csv,exclude,Tussenbestand; finale publieke bestanden zijn golden_set en golden_vs_run.

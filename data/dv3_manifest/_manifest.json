@@ -1,0 +1,94 @@
+{
+  "peildatum": "2026-06-05",
+  "scope": "corpus_keuzes/171",
+  "beschrijving": "171 Kaderwet-fasen via de scope_fasen-CTE (Kaderwet=TRUE + instellingsbesluit + tijd_adviescollege-type, excl. AP/CBP), Nederlands alleen, run-bewust op de post-fix verwerkingsronde. Identiek aan DV1/DV2 corpus_keuzes-scope. NB: de noemer is voller dan DV2's bevroren validatie-batch (419 docs / 13.165 elementen) omdat DV3 de actuele database leest, inclusief 171-scope-colleges die na die batch zijn geanalyseerd.",
+  "postfix_run_datum": "2026-06-03",
+  "geexporteerd_op": "2026-06-05T21:57:11",
+  "n_elementen": 15368,
+  "n_reacties": 482,
+  "n_adviezen": 400,
+  "per_type": {
+    "aanbeveling": 8519,
+    "probleemdefinitie": 6849
+  },
+  "dekking": {
+    "n_reacties": 482,
+    "met_elementen": 482,
+    "zonder_elementen": 0
+  },
+  "elementen_per_reactie": {
+    "mediaan": 31.0,
+    "q1": 22.0,
+    "q3": 41.0,
+    "min": 5,
+    "max": 81
+  },
+  "elementen_per_advies": {
+    "mediaan": 32.0,
+    "q1": 23.0,
+    "q3": 44.25
+  },
+  "cramers_v_11label": 0.4212,
+  "cramers_v_6klasse": 0.2634,
+  "cramers_v_11label_clustered": {
+    "mediaan": 0.4381,
+    "p05": 0.4052,
+    "p95": 0.5033
+  },
+  "cramers_v_6klasse_clustered": {
+    "mediaan": 0.2857,
+    "p05": 0.2272,
+    "p95": 0.3387
+  },
+  "collegetype_cramers_v_6klasse": 0.0905,
+  "collegetype_cramers_v_6klasse_clustered": {
+    "mediaan": 0.1182,
+    "p05": 0.0738,
+    "p95": 0.1593
+  },
+  "collegetype_cramers_v_11label": 0.1447,
+  "collegetype_tellingen": [
+    {
+      "collegetype": "vast",
+      "n_elementen": 11604,
+      "n_reacties": 377,
+      "n_adviezen": 326,
+      "pct_substantieel": 14.9,
+      "pct_retorisch": 39.0,
+      "pct_ambigu": 22.5,
+      "pct_niet_behandeld": 15.4,
+      "pct_procedureel": 4.0,
+      "pct_afgewezen": 4.2
+    },
+    {
+      "collegetype": "eenmalig",
+      "n_elementen": 3700,
+      "n_reacties": 103,
+      "n_adviezen": 73,
+      "pct_substantieel": 22.4,
+      "pct_retorisch": 29.6,
+      "pct_ambigu": 22.6,
+      "pct_niet_behandeld": 15.4,
+      "pct_procedureel": 7.1,
+      "pct_afgewezen": 2.9
+    },
+    {
+      "collegetype": "tijdelijk",
+      "n_elementen": 64,
+      "n_reacties": 2,
+      "n_adviezen": 1,
+      "pct_substantieel": 7.8,
+      "pct_retorisch": 40.6,
+      "pct_ambigu": 42.2,
+      "pct_niet_behandeld": 9.4,
+      "pct_procedureel": 0.0,
+      "pct_afgewezen": 0.0
+    }
+  ],
+  "bronnen": [
+    "pipeline.kabinetsreactie_aanbeveling_matches",
+    "pipeline.kabinetsreactie_analyse",
+    "corpus.adviesdocumenten",
+    "register.adviescollege_fasen (scope_fasen-CTE)"
+  ]
+}

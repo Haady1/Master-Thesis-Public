@@ -1,0 +1,65 @@
+% Retrievalprestatie kabinetsreactie-matcher (DV1).
+% Tekst geverifieerd tegen
+% kabinetsreactie_data/retrieval_report.json (advies_count 69, precision@1 0,5652,
+% recall@50 0,8841, MRR 0,6749).
+% Aanvullende VLAM-poort-data (precision 0,64, VLAM-recall 0,97, end-to-end 0,81)
+% staat in kabinetsreactie_data/vlam_precision_report.json; nog niet in deze tekst verwerkt.
+
+\subsubsection{Retrievalprestatie van de kabinetsreactie-matcher.}
+De kabinetsreactie-matcher werkt in twee fasen: een retrievallaag zoekt
+kandidaat-documenten die mogelijk als reactie op een adviesrapport dienen,
+waarna de VLAM-poort die kandidaten inhoudelijk beoordeelt
+(Tabel~\ref{tab:dv1-matchers}). De hier gerapporteerde evaluatie betreft
+uitsluitend de retrievallaag: de vraag of de juiste reactie \"uberhaupt in de
+kandidaatlijst verschijnt, nog v\'o\'or de validatie die tot de 232 gevalideerde
+koppelingen leidt. Alleen de deterministische zoekroutes stonden aan; de
+semantische pgvector-route was uitgeschakeld, zodat de gerapporteerde recall een
+ondergrens vormt.
+
+\noindent Als grondwaarheid dienden advies-reactieparen waarin het adviescollege
+zelf het betreffende Kamerstuk als kabinetsreactie publiceerde en waarin dat
+doeldocument aantoonbaar in de doorzochte corpus aanwezig was. Dit is een aparte,
+geconstrueerde benchmarkset en geen subset van de 417 geanalyseerde
+adviesrapporten: het criterium identificeerde 183 paren over 167 adviesrapporten,
+waarvan deze pilot er 69 evalueerde. Net als bij de instellingsbesluit-matcher
+(candidate recall 119/151) gaat het dus om recall t\'egen bekende paren, niet om
+volledige recall over alle werkelijke koppelingen
+(zie Tabel~\ref{tab:dv1-beperkingen}).
+
+\noindent De juiste reactie staat in 57\,\% van de gevallen direct op de eerste
+positie, in 75\,\% binnen de top drie en in 88\,\% binnen de top vijftig. De mean
+reciprocal rank (MRR), het gemiddelde van de reciproque rangposities, bedraagt
+0,67; dat komt overeen met een juist document dat doorgaans hoog in de lijst staat,
+rond positie 1 \`a 2 (Tabel~\ref{tab:dv1-retrieval}). Geen van de 69 gevallen
+leverde een lege resultatenlijst op. Deze cijfers suggereren dat de retrievallaag
+een solide basis vormt, maar dat de daaropvolgende VLAM-poort nodig blijft om
+valse positieven te filteren en de kandidaten te prioriteren, passend bij de
+bewust lage precisie van de brede zoekstap. De schattingen zijn omgeven met
+onzekerheid vanwege de kleine, exploratieve steekproef ($N = 69$), en de
+grondwaarheid uit door colleges zelf gepubliceerde reacties kan selectiebias
+bevatten, zodat de cijfers niet zonder voorbehoud op de volledige populatie van
+toepassing zijn.
+
+\begin{table}[htbp]
+\centering
+\caption{Retrievalprestatie van de kabinetsreactie-matcher op een geconstrueerde
+benchmarkset ($N = 69$ adviesrapporten), met 95\%-betrouwbaarheidsintervallen
+volgens Wilson. Alleen deterministische zoekroutes; de semantische route stond
+uit, zodat recall een ondergrens is.}
+\label{tab:dv1-retrieval}
+\footnotesize
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Metriek & Waarde & 95\,\%-BI \\
+\midrule
+Precision@1 & 0,57 & 0,45--0,68 \\
+Recall@1    & 0,57 & 0,45--0,68 \\
+F1 (top-1)  & 0,57 & --- \\
+Recall@3    & 0,75 & 0,64--0,84 \\
+Recall@10   & 0,87 & 0,77--0,93 \\
+Recall@25   & 0,88 & 0,79--0,94 \\
+Recall@50   & 0,88 & 0,79--0,94 \\
+MRR         & 0,67 & --- \\
+\bottomrule
+\end{tabular}
+\end{table}

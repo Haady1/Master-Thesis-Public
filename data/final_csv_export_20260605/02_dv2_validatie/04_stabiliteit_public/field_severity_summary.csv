@@ -1,0 +1,10 @@
+difference_type,field_severity,row_count,stable_count,unstable_count
+exact_match,informatief,460,460,0
+substantive_difference,informatief,540,0,540
+exact_match,kritiek,1159,1159,0
+missing_or_sparse,kritiek,5,0,5
+substantive_difference,kritiek,136,0,136
+cosmetic_only,waarschuwing,4,4,0
+exact_match,waarschuwing,1445,1445,0
+missing_or_sparse,waarschuwing,7,0,7
+substantive_difference,waarschuwing,44,0,44

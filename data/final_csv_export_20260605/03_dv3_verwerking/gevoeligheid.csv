@@ -1,0 +1,7 @@
+variant,elementtype,n,substantieel_pct,retorisch_pct
+incl_alles,aanbeveling,8519,23.0,30.1
+incl_alles,probleemdefinitie,6849,8.7,44.9
+excl_onduidelijk,aanbeveling,6871,28.5,37.3
+excl_onduidelijk,probleemdefinitie,5023,11.9,61.2
+excl_beide_vangnet,aanbeveling,5570,35.2,46.1
+excl_beide_vangnet,probleemdefinitie,3959,15.1,77.6

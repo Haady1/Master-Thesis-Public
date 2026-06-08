@@ -1,0 +1,5 @@
+bron,soort,veld,match,n,rate,wilson_lo,wilson_hi
+canonical,classificatie,sub_category,80,101,0.7921,70.3,86.0
+canonical,classificatie,main_category,92,101,0.9109,83.9,95.2
+raw,classificatie,sub_category,80,101,0.7921,70.3,86.0
+raw,classificatie,main_category,92,101,0.9109,83.9,95.2

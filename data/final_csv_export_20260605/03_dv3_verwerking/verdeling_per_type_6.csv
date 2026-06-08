@@ -1,0 +1,13 @@
+elementtype,categorie,n,aandeel_pct,ci95_laag_pct,ci95_hoog_pct
+aanbeveling,retorisch,2566,30.1,29.2,31.1
+aanbeveling,substantieel,1961,23.0,22.1,23.9
+aanbeveling,ambigu,1648,19.3,18.5,20.2
+aanbeveling,niet_behandeld,1301,15.3,14.5,16.1
+aanbeveling,procedureel,577,6.8,6.3,7.3
+aanbeveling,afgewezen,466,5.5,5.0,6.0
+probleemdefinitie,retorisch,3074,44.9,43.7,46.1
+probleemdefinitie,ambigu,1826,26.7,25.6,27.7
+probleemdefinitie,niet_behandeld,1064,15.5,14.7,16.4
+probleemdefinitie,substantieel,598,8.7,8.1,9.4
+probleemdefinitie,procedureel,151,2.2,1.9,2.6
+probleemdefinitie,afgewezen,136,2.0,1.7,2.3

@@ -1,0 +1,17 @@
+elementtype,categorie,n,aandeel_pct,ci95_laag_pct,ci95_hoog_pct
+aanbeveling,onderschrijvend,2950,34.6,33.6,35.6
+aanbeveling,neutraal_samenvattend,2580,30.3,29.3,31.3
+aanbeveling,onbekend,1655,19.4,18.6,20.3
+aanbeveling,gedeeltelijk_onderschrijvend,804,9.4,8.8,10.1
+aanbeveling,afwijzend,360,4.2,3.8,4.7
+aanbeveling,relativerend,96,1.1,0.9,1.4
+aanbeveling,geen_aanleiding_tot_wijziging,43,0.5,0.4,0.7
+aanbeveling,onduidelijk,31,0.4,0.3,0.5
+probleemdefinitie,onbekend,2574,37.6,36.4,38.7
+probleemdefinitie,neutraal_samenvattend,1891,27.6,26.6,28.7
+probleemdefinitie,onderschrijvend,1834,26.8,25.7,27.8
+probleemdefinitie,gedeeltelijk_onderschrijvend,258,3.8,3.3,4.2
+probleemdefinitie,afwijzend,121,1.8,1.5,2.1
+probleemdefinitie,relativerend,119,1.7,1.5,2.1
+probleemdefinitie,geen_aanleiding_tot_wijziging,39,0.6,0.4,0.8
+probleemdefinitie,onduidelijk,13,0.2,0.1,0.3

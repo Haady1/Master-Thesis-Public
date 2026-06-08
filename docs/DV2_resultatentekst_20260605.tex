@@ -1,0 +1,146 @@
+% Compacte DV2-resultatentekst, opgesteld op 2026-06-05.
+% Bron: bevroren DV2-bundels 01b en 02b, include_english=False,
+% USE_FROZEN_ADVIES=True, USE_171_SCOPE_KABINET=True.
+
+\subsection{Betrouwbaarheid van de meting (DV2)}
+\label{subsec:dv2-betrouwbaarheid-compact}
+
+\noindent DV2 toetst niet of de AI-pijplijn foutloos is, maar of zij betrouwbaar
+genoeg is om tekstuele relaties op corpusschaal te meten. De leidende peildatum is
+5 juni 2026. De validatie gebruikt alleen Nederlandstalige documenten
+(\texttt{include\_english=False}) en de bevroren 171-Kaderwet-scope. Daarmee rust
+de adviesvalidatie op 1.374 adviesrapporten met 22.286 aanbevelingen en 17.927
+probleemdefinities. De kabinetsreactievalidatie rust op 419 in-scope
+kabinetsreactiedocumenten met samen 13.165 advieselementen. Deze noemers meten
+niet hetzelfde als de DV1-contextcijfers: DV2 gaat over meetkwaliteit van de
+AI-output, niet over de volledige corpusopbouw.
+
+\noindent Het gebruiksoordeel is daarom belangrijker dan een enkel eindcijfer.
+Een hoge score betekent hier niet dat elke individuele passage foutloos is
+gecodeerd, maar dat de betreffende variabele sterk genoeg is om op geaggregeerd
+niveau mee te tellen. Omgekeerd betekent een lage score niet dat de hele pijplijn
+onbruikbaar is. Zij wijst vooral aan welke subvelden buiten de harde analyse
+moeten blijven. DV2 fungeert daarmee als kwaliteitsfilter voor DV3: alleen
+onderdelen die groen of voorzichtig oranje scoren dragen de inhoudelijke
+resultaten.
+
+\noindent De adviesextractie is het sterkste onderdeel van de pijplijn. Op de
+golden set van 43 gekoppelde en gevalideerde documenten worden aanbevelingen
+inhoudelijk goed teruggevonden (F1 = 0,910). Voor probleemdefinities is de
+semantische score nog iets hoger (F1 = 0,915; 95\%-interval ongeveer
+0,912--0,919). De lagere item-F1-scores laten zien dat de exacte afbakening van
+losse items moeilijker is dan het terugvinden van de inhoudelijke strekking. Dat
+is voor deze thesis aanvaardbaar, omdat DV3 patronen op corpusschaal rapporteert.
+Twee subvelden zijn daarvoor niet sterk genoeg: consultatie-actoren (F1 = 0,216)
+en beleidslogica-koppelingen (strikte F1 = 0,012). Die worden daarom niet als
+harde kwantitatieve variabelen gebruikt.
+
+\begin{table}[htbp]
+\centering
+\caption{Kernscores van de DV2-validatie, peildatum 5 juni 2026.}
+\label{tab:dv2-compact-kernscores}
+\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.8cm}
+>{\raggedright\arraybackslash}p{2.8cm}
+>{\raggedright\arraybackslash}p{2.8cm}
+>{\raggedright\arraybackslash}X@{}}
+\toprule
+Onderdeel & Noemer & Score & Interpretatie \\
+\midrule
+Aanbevelingen, semantische dekking & 43 documenten & F1 = 0,910 & Hard bruikbaar op corpusschaal \\
+Aanbevelingen, itemniveau & 43 documenten & F1 = 0,828 & Bruikbaar, maar minder precies per item \\
+Probleemdefinities, semantische dekking & 43 documenten & F1 = 0,915 & Hard bruikbaar op corpusschaal \\
+Probleemdefinities, itemniveau & 43 documenten & F1 = 0,768 & Bruikbaar met nuance \\
+Consultatie-actoren & 43 documenten & F1 = 0,216 & Niet hard gebruiken \\
+Beleidslogica-koppelingen & 43 documenten & F1 = 0,012 & Niet hard gebruiken \\
+Documentclassificatie & 101 documenten & 80/101 = 79,2\% & Geschikt voor corpusordening \\
+Metadata canonical & 101 documenten & 61/101 = 60,4\% & Niet als harde individuele bron gebruiken \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\noindent De kabinetsreactie-agent is bruikbaar, maar duidelijk zwakker dan de
+adviesextractie. In de in-scope golden/silver-set vallen 87 van de 88 elementen
+binnen de actuele afbakening. De exacte match op grove verwerkingslabels is
+46/87, oftewel 52,9\%. Dat percentage moet niet als corpusbrede accuratesse
+worden gelezen, omdat de testset per voorspeld label is gebalanceerd. De agent
+herkent wel meestal dat een element behandeld wordt: 68 van de 77 behandelde
+elementen worden als behandeld herkend. Niet-behandeling is minder zeker: 5 van
+de 10 niet-behandelde elementen worden goed herkend. De belangrijkste inhoudelijke
+verwarring ligt tussen substantiele en retorische verwerking. Juist daarom zijn
+deze labels geschikt voor geaggregeerde patronen, maar niet voor harde uitspraken
+over losse advieselementen zonder broncontrole.
+
+\noindent Ook de aard van de referentie telt mee. De kabinetsreactievalidatie is
+een golden/silver-set: zij is zorgvuldig gecontroleerd, maar niet hetzelfde als een
+volledige menselijke dubbelcodering door meerdere onafhankelijke codeurs. Daardoor
+is de score geschikt om de zwakke en sterke plekken van de agent te beoordelen,
+maar niet om volledige reproduceerbaarheid te claimen. Voor de interpretatie van
+DV3 betekent dit dat de brede verdeling van labels informatief is, terwijl
+voorbeelden en grensgevallen terug naar de bron moeten.
+
+\begin{table}[htbp]
+\centering
+\caption{Stabiliteit en dekking van de DV2-validatie.}
+\label{tab:dv2-compact-stabiliteit}
+\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{4.0cm}
+>{\raggedright\arraybackslash}p{3.3cm}
+>{\raggedright\arraybackslash}X@{}}
+\toprule
+Controle & Uitkomst & Betekenis \\
+\midrule
+Adviesextractie hertest & 10 documenten x 3 runs; PEO 0,917--1,000 & Rapportlabels zijn grotendeels stabiel; itemsets blijven minder stabiel \\
+Classificatie/metadata hertest & 100 documenten x 5 runs; alpha kritiek 0,935; metadata 0,959 & Sterk genoeg voor corpusordening en controle \\
+Kabinetsreactie hertest & 10 cases x 3 runs; agreement 0,2537; alpha 0,1847 & Losse verwerkingslabels zijn niet stabiel genoeg als harde claim \\
+Kabinetsreactie-golden-set & 46/87 exact; 68/77 behandeld; 5/10 niet-behandeld & Breed patroon bruikbaar, precieze labels voorzichtig lezen \\
+Traceerbaarheid & 10.580/13.165 elementen met minstens drie trace-warnings & Broncontrole blijft nodig; warnings zijn niet automatisch inhoudelijke fouten \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\noindent De stabiliteitscontrole bevestigt dit beeld. Classificatie en metadata
+zijn reproduceerbaar genoeg voor ordening van het corpus. Adviesextractie blijft
+stabiel genoeg voor de hoofdvariabelen, al is de exacte itemset bij herhaling
+minder vast. De kabinetsreactie-agent is op elementniveau het minst stabiel:
+herhaalde runs leveren vaak andere fijne labels op. Dat maakt de meting niet
+onbruikbaar, maar wel beperkt. De juiste toepassing is aggregatie: aandelen en
+patronen op corpusniveau, gelezen met de onzekerheid uit deze validatie.
+
+\noindent Traceerbaarheid verandert dit oordeel niet, maar bepaalt wel hoe de
+uitkomsten gelezen moeten worden. Veel kabinetsreactie-elementen hebben technische
+trace-warnings. Dat zijn waarschuwingen over bronondersteuning, geen automatisch
+bewijs dat het inhoudelijke label fout is. Zij maken wel duidelijk dat losse
+casusclaims nooit alleen op het tabelresultaat mogen rusten. De AI-output is dus
+een schaalinstrument: zij maakt het corpus systematisch meetbaar, waarna
+broncontrole nodig blijft voor gevoelige interpretaties.
+
+\begin{table}[htbp]
+\centering
+\caption{Verantwoord gebruik van de AI-output in de thesis.}
+\label{tab:dv2-compact-gebruik}
+\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.0cm}
+>{\raggedright\arraybackslash}p{2.2cm}
+>{\raggedright\arraybackslash}X
+>{\raggedright\arraybackslash}p{3.6cm}@{}}
+\toprule
+Onderdeel & Oordeel & Wel gebruiken voor & Niet gebruiken voor \\
+\midrule
+Aanbevelingen en probleemdefinities & Groen & Corpusbrede analyse van advieselementen & Ongecontroleerde claims over elke losse formulering \\
+Documentclassificatie & Groen/oranje & Ordening en controle van het corpus & Definitieve juridische of inhoudelijke duiding per document \\
+Metadata & Oranje & Context, ordening en broncontrole & Harde individuele uitspraken zonder controle \\
+Kabinetsreactielabels & Oranje & Geaggregeerde patronen in zichtbare verwerking & Losse elementclaims zonder broncontrole \\
+Consultatie-actoren en beleidslogica & Rood & Hoogstens verkennende context & Harde kwantitatieve conclusies \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\noindent Het antwoord op DV2 is daarom positief, maar begrensd. De AI-pijplijn is
+betrouwbaar genoeg om op corpusschaal aanbevelingen, probleemdefinities,
+documenttypen en brede patronen in kabinetsreacties te meten. Zij is niet
+betrouwbaar genoeg om zonder broncontrole harde uitspraken te doen over
+individuele kabinetsreactielabels, consultatie-actoren of
+beleidslogica-koppelingen. Voor DV3 betekent dit dat de hoofdconclusies op
+geaggregeerd niveau worden gelezen. Losse voorbeelden blijven alleen overtuigend
+wanneer zij teruggaan naar de bronpassage.
