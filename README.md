@@ -168,29 +168,3 @@ thesis_eindanalyse_public_20260607/
     |-- DV2_resultatentekst_20260605.tex
         Resultaattekst voor DV2 op peildatum 2026-06-05.
 ```
-
-## Bewust Niet Opgenomen
-
-- `thesis/Analyse/data/dv1/**` en oude `outputs/dv1/**`, omdat die oude noemers bevatten.
-- `Tweede_kamer_data/dossier_pool_artifacts/**`, omdat die ruwe tekst, fragmenten en
-  modelreview bevat.
-- `matcher/parlementair_v2/analyse/*.csv`, omdat die oude 2.172/3.336-aantallen bevat.
-- De volledige `DV2_validatie_bronnen/**`, omdat die ruwe JSON/tekst kan bevatten.
-- `DV3_verwerking_resultaattekst.tex`, omdat die superseded is en oude DV3-cijfers bevat.
-
-## Bekende Gaten
-
-- De definitieve DV1-SQL stond tijdens de inventarisatie nog buiten de repo:
-  `C:/tmp/dv1_corpus_totalen.py`.
-- De definitieve corpuskeuzes stonden tijdens de inventarisatie nog buiten de repo:
-  `C:/tmp/CORPUS_KEUZES.md`.
-- `dv2_niveau2_freeze.py` wordt in documentatie genoemd, maar is niet gevonden.
-- De oude parlementaire export gaf 2.172 documenten / 3.336 paren. Deze map gebruikt
-  het canonieke eindcijfer 2.170 documenten / 3.332 paren.
-
-## Controle Die Is Uitgevoerd
-
-- Alle CSV's zijn met een CSV-parser geopend.
-- De 31 CSV's in `data/final_csv_export_20260605/` zijn aanwezig.
-- De notebooks zijn gestript: geen celoutputs en geen execution counts.
-- Er zijn geen logs, locks, caches, `.pyc`-bestanden of ruwe reviewbestanden opgenomen.
