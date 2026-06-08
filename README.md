@@ -3,13 +3,7 @@
 Peildatum: 2026-06-05.
 
 Deze map bevat de public-safe analysebestanden bij de eindversie van de thesis van
-Haady Hassan over de doorwerking van Kaderwet-adviescolleges. De bestanden zijn
-gebruikt om de resultatensectie te onderbouwen: DV1, DV2, DV3 en de verkennende
-collegetype-analyse binnen DV3.
-
-De map is bedoeld voor GitHub. Hij bevat eindtabellen, veilige evaluatiebestanden,
-gestripte notebooks en scripts voor herkomstcontrole. Ruwe tekst, modelredeneringen, logs,
-locks, wachtrijbestanden en oude conflicterende exports zijn bewust niet opgenomen.
+Haady Hassan over de zichtbare doorwerking van Kaderwet-adviescolleges. 
 
 ## Waarvoor Dit Is Gebruikt
 
