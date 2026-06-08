@@ -1,7 +1,7 @@
 # DV2-aanpak resultatensectie
 
-Peildatum: 2026-06-05  
-Scope: Nederlandstalige analysepijplijn (`include_english=False`)  
+Peildatum: 2026-06-05
+Scope: Nederlandstalige analysepijplijn (`include_english=False`)
 Status: werkbestand voor het schrijven van de DV2-resultatensectie
 
 ## Doel van DV2

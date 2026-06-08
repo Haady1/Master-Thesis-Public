@@ -9,8 +9,8 @@ thesis/Analyse/DV2_validatie_bronnen/01b_adviesvalidatie_171_frozen_20260605/df_
 thesis/Analyse/DV2_validatie_bronnen/01b_adviesvalidatie_171_frozen_20260605/df_aanbevelingen.csv,exclude,Restricted raw: bevat beschrijving/bronfragmenten; publieke geschoonde variant is opgenomen.
 thesis/Analyse/DV2_validatie_bronnen/01b_adviesvalidatie_171_frozen_20260605/df_problemen.csv,exclude,Restricted raw: bevat beschrijving/bronfragmenten; publieke geschoonde variant is opgenomen.
 thesis/Analyse/DV2_validatie_bronnen/05_reliability_test_hertest/retry_wisselaars_top20.csv,exclude,Restricted raw: bevat handmatige diagnose/tekstsnippets; niet publiek opgenomen.
-thesis/Analyse/DV2_validatie_bronnen/08_classificatie_metadata_reproduceerbaarheid_20260507/classification_consistency.csv,exclude,Restricted raw: bevat run_waarde-kolommen en AI-redeneringen.
-thesis/Analyse/DV2_validatie_bronnen/08_classificatie_metadata_reproduceerbaarheid_20260507/metadata_field_consistency.csv,exclude,Restricted raw: bevat run_waarde-kolommen en AI-redeneringen.
+thesis/Analyse/DV2_validatie_bronnen/08_classificatie_metadata_reproduceerbaarheid_20260507/classification_consistency.csv,exclude,Restricted raw: bevat run_waarde-kolommen en modelredeneringen.
+thesis/Analyse/DV2_validatie_bronnen/08_classificatie_metadata_reproduceerbaarheid_20260507/metadata_field_consistency.csv,exclude,Restricted raw: bevat run_waarde-kolommen en modelredeneringen.
 thesis/Analyse/DV2_validatie_bronnen/08_classificatie_metadata_reproduceerbaarheid_20260507/metadata_evidence_audit.csv,exclude,Restricted raw: evidence/redenaties; niet nodig voor eindtabellen.
 thesis/Analyse/DV2_validatie_bronnen/08_classificatie_metadata_reproduceerbaarheid_20260507/summary_consistency.csv,exclude,Restricted raw: vrije samenvattingsvelden; niet nodig voor eindtabellen.
 thesis/Analyse/DV2_validatie_bronnen/08_classificatie_metadata_reproduceerbaarheid_20260507/verifier_cross_main_audit.csv,exclude,Restricted raw: audit/redenering; niet nodig voor eindtabellen.

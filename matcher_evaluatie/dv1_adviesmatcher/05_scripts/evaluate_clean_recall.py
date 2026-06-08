@@ -1,29 +1,3 @@
-"""Zuivere recall: van de aantoonbaar-aanwezige rapporten, hoeveel vindt de matcher?
-
-Wat dit doet
-------------
-Combineert presence_full.csv (welke website-rapporten staan echt in de officiele
-bekendmakingen, betrouwbaar bepaald via presence_scan.py) met candidate_eval_<label>.jsonl
-(welke rapporten de matcher in zijn officiele kandidaten terugvond, met rang). Zo meten we
-de ZUIVERE recall: noemer = alleen rapporten die aantoonbaar bestaan, dus elke miss is een
-echte matcher-miss en geen corpus-gat.
-
-Metrieken
----------
-- clean recall = matcher-gevonden-en-aanwezig / aanwezig
-- recall@5/10/25 over de aanwezige set (met 95%-Wilson-CI)
-- per college
-- labeling-precision (corpus-onafhankelijk): van advies-positief gelabelde kandidaten,
-  welk deel is echt een adviesrapport (tekst-match).
-
-In-/uitvoer
------------
-Inputs: presence_full.csv, candidate_eval_<label>.jsonl, groundtruth_sample.csv (collegenamen).
-Outputs: stdout + report_clean_<label>.md / .json.
-
-Geen database-toegang.
-
-"""
 from __future__ import annotations
 
 import argparse
@@ -37,7 +11,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[3]
 DV1_DIR = PROJECT_ROOT / "thesis" / "Analyse" / "dv1_matcher_recall"
 if str(DV1_DIR) not in sys.path:
     sys.path.insert(0, str(DV1_DIR))
-from evaluate_kabinetsreactie_recall import wilson_interval              
+from evaluate_kabinetsreactie_recall import wilson_interval
 
 DEFAULT_OUT_DIR = Path(__file__).resolve().parent / "artifacts"
 TOPK = (5, 10, 25)
@@ -49,7 +23,7 @@ def main() -> None:
     ap.add_argument("--out-dir", type=Path, default=DEFAULT_OUT_DIR)
     args = ap.parse_args()
 
-                                                   
+
     present = {}
     with (args.out_dir / "presence_full.csv").open(encoding="utf-8") as fh:
         for r in csv.DictReader(fh):
@@ -59,7 +33,7 @@ def main() -> None:
             }
     present_ids = {aid for aid, v in present.items() if v["aanwezig"]}
 
-                                                                               
+
     found: dict[int, dict] = {}
     pos_total = pos_real = 0
     with (args.out_dir / f"candidate_eval_{args.label}.jsonl").open(encoding="utf-8") as fh:
@@ -81,7 +55,7 @@ def main() -> None:
                 found[aid] = {"jac": c.get("best_full_jaccard", 0), "rank": rank,
                               "route": c.get("route"), "llm_positive": c.get("llm_positive")}
 
-                                              
+
     n = len(present_ids)
     found_present = present_ids & set(found)
     p, lo, hi = wilson_interval(len(found_present), n)
@@ -91,7 +65,7 @@ def main() -> None:
         kp, klo, khi = wilson_interval(hits, n)
         topk[k] = {"recall": round(kp, 4), "wilson": [round(klo, 4), round(khi, 4)], "hits": hits}
 
-                  
+
     per = {}
     pres_by_col = defaultdict(set)
     for aid in present_ids:

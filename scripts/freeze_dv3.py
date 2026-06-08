@@ -1,27 +1,3 @@
-"""DV3-verwerking bevriezen op de 171-Kaderwet-scope (peildatum 2026-06-05).
-
-Wat dit script doet
--------------------
-Roept `dv3_analyse.run()` aan (die op de 171/corpus_keuzes-scope draait, zie dv3_analyse.py)
-en schrijft alle geaggregeerde uitkomsten read-only weg als een bevroren snapshot. Zo zijn
-de DV3-cijfers in de thesis herleidbaar en reproduceerbaar, net als de DV2-bundels
-(01b/02b/10). Het script muteert niets in de database; dv3_analyse doet alleen SELECT.
-
-Input
------
-- thesis/Analyse/dv3_analyse.py :: run()  (live PostgreSQL, 171-scope, run-bewust)
-
-Output
-------
-Bundel thesis/Analyse/DV2_validatie_bronnen/11_dv3_verwerking_171_frozen_20260605/
-met _manifest.json + losse CSV's (verdelingen, dimensies, Cramer's V, gevoeligheid,
-meetkwaliteit, noemer-metadata).
-
-Plaats in de pijplijn
----------------------
-Leeslaag bovenop de DV3-analyse. Vriest de cijfers in die anders alleen live bestonden.
-
-"""
 
 from __future__ import annotations
 
@@ -35,9 +11,9 @@ import pandas as pd
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from thesis.Analyse.dv3_analyse import run              
+from thesis.Analyse.dv3_analyse import run
 
-                                                                            
+
 PEILDATUM = "2026-06-05"
 SCOPE = "corpus_keuzes/171"
 POSTFIX_RUN_DATUM = "2026-06-03"
@@ -48,7 +24,6 @@ OUTPUT_DIR = (
 )
 
 def _per_type_frame(res: dict, key: str) -> pd.DataFrame:
-    """Voeg de twee elementtype-frames samen met een elementtype-kolom."""
     frames = []
     for et in ["aanbeveling", "probleemdefinitie"]:
         sub = res[key][et].copy()
@@ -57,29 +32,28 @@ def _per_type_frame(res: dict, key: str) -> pd.DataFrame:
     return pd.concat(frames, ignore_index=True)
 
 def freeze_dv3() -> dict:
-    """Voer de DV3-analyse uit op de 171-scope en exporteer de bevroren bundel."""
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     print(f"[DV3-Freeze] Output: {OUTPUT_DIR}")
     print("[DV3-Freeze] dv3_analyse.run() aanroepen (171-scope)...")
     res = run()
 
-                                
+
     res["verdeling_11"].to_csv(OUTPUT_DIR / "verdeling_11.csv", index=False)
     res["verdeling_6"].to_csv(OUTPUT_DIR / "verdeling_6.csv", index=False)
 
-                                                                                
+
     _per_type_frame(res, "verdeling_6_per_type").to_csv(
         OUTPUT_DIR / "verdeling_per_type_6.csv", index=False)
     _per_type_frame(res, "verdeling_11_per_type").to_csv(
         OUTPUT_DIR / "verdeling_per_type_11.csv", index=False)
 
-                                
+
     _per_type_frame(res, "dim_positie_per_type").to_csv(
         OUTPUT_DIR / "dimensie_positie.csv", index=False)
     _per_type_frame(res, "dim_opvolging_per_type").to_csv(
         OUTPUT_DIR / "dimensie_opvolging.csv", index=False)
 
-                                                                     
+
     cramers = pd.DataFrame([
         {"niveau": "11-label", "cramers_v": res["cramers_11"]["cramers_v"],
          "chi2": res["cramers_11"]["chi2"], "n": res["cramers_11"]["n"],
@@ -94,14 +68,14 @@ def freeze_dv3() -> dict:
     ])
     cramers.to_csv(OUTPUT_DIR / "cramers_statistiek.csv", index=False)
 
-                                     
+
     res["sensitivity"].to_csv(OUTPUT_DIR / "gevoeligheid.csv", index=False)
     res["meetkwaliteit"].to_csv(OUTPUT_DIR / "meetkwaliteit.csv", index=False)
 
-                              
+
     res["collegetype"]["crosstab_6"].to_csv(OUTPUT_DIR / "collegetype_verdeling_6.csv", index=False)
 
-                        
+
     pd.DataFrame([
         {"noemer": "elementen", "n": res["n_elementen"]},
         {"noemer": "reacties", "n": res["n_reacties"]},
@@ -110,7 +84,7 @@ def freeze_dv3() -> dict:
         {"noemer": "probleemdefinities", "n": res["per_type_n"].get("probleemdefinitie")},
     ]).to_csv(OUTPUT_DIR / "metadata_inscope.csv", index=False)
 
-                 
+
     manifest = {
         "peildatum": PEILDATUM,
         "scope": SCOPE,

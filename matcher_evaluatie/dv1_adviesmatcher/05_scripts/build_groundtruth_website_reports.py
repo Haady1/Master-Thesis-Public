@@ -1,38 +1,3 @@
-"""Bouw de grondwaarheid voor de zuivere advies-matcher-test.
-
-Wat dit doet
-------------
-Selecteert adviesrapporten die via de COLLEGE-WEBSITES zijn binnengehaald
-(corpus.adviesdocumenten met een college-domein in download_url) voor een handvol
-grote colleges, en legt per rapport een tekst-fingerprint vast. Deze rapporten zijn
-buiten de matcher om verzameld en vormen dus een onafhankelijke grondwaarheid:
-als de matcher (die alleen in de officiele bekendmakingen zoekt) goed werkt, vindt
-hij dezelfde rapporten daar terug.
-
-In-/uitvoer
------------
-Inputs:
-- PostgreSQL: corpus.adviesdocumenten + corpus.adviesdocument_teksten +
-  pipeline.v_canonical_document_classificatie/_metadata + public.adviescolleges.
-- CLI: --college-id (herhaalbaar), --per-college, --out-dir.
-
-Outputs (in --out-dir):
-- groundtruth_sample.csv         : de ~50 gesamplede rapporten (recall-grondwaarheid).
-- groundtruth_sample_fp.jsonl    : fingerprints van de sample.
-- groundtruth_full_fp.jsonl      : fingerprints van ALLE website-adviesrapporten van
-                                   de gekozen colleges (voor eerlijke precision-meting).
-
-Wat telt als "website-bron"
----------------------------
-download_url-host is GEEN officiele-bekendmaking/overheid-domein
-(niet officielebekendmakingen / overheid.nl / open.overheid / rijksoverheid /
-tweedekamer / eerstekamer).
-
-Plaats in de pijplijn
----------------------
-Stap 1 van matcher/advies/evaluatie. Read-only t.o.v. de database.
-
-"""
 from __future__ import annotations
 
 import argparse
@@ -51,7 +16,7 @@ if str(PROJECT_ROOT) not in sys.path:
 from pg_database.config import db_config
 from matcher.advies.evaluatie.text_fingerprint import fingerprint, normalize_tokens
 
-DEFAULT_COLLEGE_IDS = [18, 21, 30, 15, 31]                                                   
+DEFAULT_COLLEGE_IDS = [18, 21, 30, 15, 31]
 DEFAULT_OUT_DIR = Path(__file__).resolve().parent / "artifacts"
 
 WEBSITE_REPORTS_SQL = r"""
@@ -79,13 +44,12 @@ WEBSITE_REPORTS_SQL = r"""
 """
 
 def stratified_sample(rows: list[dict], per_college: int) -> list[dict]:
-    """Kies per college gelijkmatig gespreide rapporten over de tijd (deterministisch)."""
     by_college: dict[int, list[dict]] = {}
     for row in rows:
         by_college.setdefault(row["adviescollege_id"], []).append(row)
     sample: list[dict] = []
     for college_id, items in by_college.items():
-                                                                                
+
         n = len(items)
         take = min(per_college, n)
         if take == 0:
@@ -95,7 +59,7 @@ def stratified_sample(rows: list[dict], per_college: int) -> list[dict]:
         else:
             step = n / take
             indices = sorted({int(i * step) for i in range(take)})
-                                                        
+
             while len(indices) < take:
                 for j in range(n):
                     if j not in indices:
@@ -122,7 +86,7 @@ async def main() -> None:
     finally:
         await conn.close()
 
-                                                                                
+
     rows = [r for r in rows if len(normalize_tokens(r.get("body"))) >= 50]
     print(f"Website-adviesrapporten met tekst: {len(rows)} over {len(college_ids)} colleges")
 
@@ -169,7 +133,7 @@ async def main() -> None:
             }) + "\n")
     print(f"[sample-fp] {sample_fp}")
 
-                                                
+
     per = {}
     for r in sample:
         per[r["college"]] = per.get(r["college"], 0) + 1

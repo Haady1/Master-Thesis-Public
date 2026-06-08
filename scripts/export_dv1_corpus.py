@@ -1,40 +1,3 @@
-"""Exportscript DV1-corpus: database -> compacte CSV's.
-
-Dit script vormt stap A van de DV1-analyse (corpusbeschrijving voor de scriptie).
-Het is het ENIGE onderdeel dat de onderzoeksdatabase (antigravity_research) raakt.
-Het leest uitsluitend (alleen SELECT) en schrijft compacte, geaggregeerde CSV's naar
-`thesis/Analyse/data/dv1/`. Het analyse-notebook `Msc Thesis Analyse.ipynb` leest
-daarna alleen die CSV's en heeft geen database nodig. Zo is de analyse op GitHub
-reproduceerbaar.
-
-Waarom CSV-tussenlaag: de CSV's + het notebook kunnen publiek op GitHub, zodat
-iedereen kan zien en narekenen hoe de corpusbeschrijving tot stand kwam. De live
-database bevat gevoelige/grote data en hoort niet op GitHub.
-
-GitHub-veiligheid: de CSV's bevatten alleen metadata en aggregaten. Geen volledige
-OCR-tekst, geen raw LLM-output, geen lokale bestandspaden (kolom file_path wordt
-bewust NIET geexporteerd).
-
-Inputs:
-  - .env in de projectroot (PG_HOST/PG_PORT/PG_USER/PG_PASSWORD/PG_DATABASE of DATABASE_URL)
-  - tabellen in schemas register, corpus, pipeline en matcher
-
-Outputs (in thesis/Analyse/data/dv1/):
-  - documents_basis.csv            : 1 rij per corpusdocument (compacte metadata)
-  - register_colleges.csv          : juridische collegefasen uit het register
-  - college_niveau.csv             : per fase afgeleide dekkingsvlaggen (niveau 1)
-  - advies_elementen.csv           : per advies-document aantal aanbevelingen/probleemdefinities
-  - kabinetsreactie_pairs.csv      : gekoppelde advies-kabinetsreactieparen
-  - matcher_relations.csv          : gevalideerde relaties (compact, met matcher-mapping)
-  - matcher_candidates_summary.csv : kandidaten geaggregeerd per matcher x relation_group
-  - matcher_funnel.csv             : kandidaten vs gevalideerde relaties per matcher x relation_group
-  - parlementaire_links.csv        : advies -> parlementaire vervolgkoppelingen
-  - _manifest.json                 : exportdatum, db-naam, periode, rij-aantallen per CSV
-
-Draaien (vanuit projectroot of waar dan ook), met de interpreter die de dependencies
-heeft (anaconda base):
-  py "thesis/Analyse/export_dv1_corpus.py"
-"""
 
 from __future__ import annotations
 
@@ -51,9 +14,9 @@ from sqlalchemy.engine import URL
 
 import os
 
-                                                                           
-BASE_DIR = Path(__file__).resolve().parent                            
-PROJECT_ROOT = BASE_DIR.parents[1]                                 
+
+BASE_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = BASE_DIR.parents[1]
 DATA_DIR = BASE_DIR / "data" / "dv1"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -62,7 +25,7 @@ END_YEAR = 2025
 
 load_dotenv(PROJECT_ROOT / ".env")
 
-                                                                           
+
 def env_value(*names: str, default: str | None = None) -> str | None:
     for name in names:
         value = os.getenv(name)
@@ -134,7 +97,7 @@ def parse_year_frame(df: pd.DataFrame, date_columns: list[str]) -> pd.DataFrame:
     result["jaar"] = result["document_datum"].dt.year
     return result
 
-                                                                           
+
 def map_matcher(relation_group: str | None) -> str:
     g = (relation_group or "").lower()
     if g == "kabinetsreactie":
@@ -149,7 +112,7 @@ def map_matcher(relation_group: str | None) -> str:
 
 PARLEMENTAIRE_GROEPEN = ("parliamentary_context",)
 
-                                                                           
+
 def save(df: pd.DataFrame, name: str) -> int:
     path = DATA_DIR / f"{name}.csv"
     df.to_csv(path, index=False, encoding="utf-8-sig")
@@ -169,7 +132,7 @@ def main() -> None:
         "rij_aantallen": {},
     }
 
-                                                                          
+
     print("1. Documentbasis")
     doc_cols = get_columns("corpus", "adviesdocumenten")
     class_cols = get_columns("pipeline", "document_classificatie")
@@ -231,11 +194,11 @@ def main() -> None:
     sub_norm = documents["subcategorie"].astype("string").str.lower()
     documents["is_adviesrapport"] = sub_norm.str.contains("adviesrapport", na=False)
     documents["is_kabinetsreactie"] = sub_norm.str.contains("kabinetsreactie|kabinets reactie|reactie", na=False)
-                                                          
+
     documents = documents.drop(columns=["datum_document_bron", "datum_metadata"], errors="ignore")
     manifest["rij_aantallen"]["documents_basis"] = save(documents, "documents_basis")
 
-                                                                          
+
     print("2. Register-colleges")
     register = read_sql("register_colleges", """
         SELECT id, officiele_naam, type, type_adviescollege, tijd_adviescollege,
@@ -245,7 +208,7 @@ def main() -> None:
     """)
     manifest["rij_aantallen"]["register_colleges"] = save(register, "register_colleges")
 
-                                                                          
+
     print("3. Advies-elementen")
     def element_counts(schema: str, table: str, name: str) -> pd.DataFrame:
         cols = get_columns(schema, table)
@@ -262,7 +225,7 @@ def main() -> None:
     )
     manifest["rij_aantallen"]["advies_elementen"] = save(elementen, "advies_elementen")
 
-                                                                          
+
     print("4. Kabinetsreactie-paren")
     kr_cols = get_columns("pipeline", "kabinetsreactie_analyse")
     advies_doc_col = first_existing(kr_cols, ["advies_document_id", "advies_id", "source_document_id"])
@@ -282,7 +245,7 @@ def main() -> None:
                         f"SELECT {', '.join(parts)} FROM pipeline.kabinetsreactie_analyse")
     manifest["rij_aantallen"]["kabinetsreactie_pairs"] = save(kr_pairs, "kabinetsreactie_pairs")
 
-                                                                          
+
     print("5. Matcher-relaties")
     relations = read_sql("relations", """
         SELECT relation_id, relation_group, relation_type, relation_method,
@@ -293,7 +256,7 @@ def main() -> None:
     relations["matcher"] = relations["relation_group"].map(map_matcher)
     manifest["rij_aantallen"]["matcher_relations"] = save(relations, "matcher_relations")
 
-                                                                          
+
     print("6. Kandidaten-samenvatting")
     cand_summary = read_sql("match_candidates_summary", """
         SELECT relation_group, relation_type, COUNT(*) AS kandidaten
@@ -303,7 +266,7 @@ def main() -> None:
     cand_summary["matcher"] = cand_summary["relation_group"].map(map_matcher)
     manifest["rij_aantallen"]["matcher_candidates_summary"] = save(cand_summary, "matcher_candidates_summary")
 
-                                                                          
+
     print("7. Matcher-funnel")
     rel_summary = (relations.groupby(["matcher", "relation_group"], dropna=False)
                    .size().reset_index(name="gevalideerde_relaties"))
@@ -319,12 +282,12 @@ def main() -> None:
     funnel = funnel.sort_values(["matcher", "relation_group"])
     manifest["rij_aantallen"]["matcher_funnel"] = save(funnel, "matcher_funnel")
 
-                                                                          
+
     print("8. Parlementaire links")
     parl = relations[relations["relation_group"].str.lower().str.contains("parliament", na=False)].copy()
     manifest["rij_aantallen"]["parlementaire_links"] = save(parl, "parlementaire_links")
 
-                                                                          
+
     print("9. College-niveau")
     ib_fasen = set(relations.loc[relations["relation_group"] == "instellingsbesluit_validated_link",
                                  "subject_adviescollege_fase_id"].dropna().astype(int))
@@ -352,7 +315,7 @@ def main() -> None:
     college["heeft_kabinetsreactie"] = college["fase_id"].isin(reactie_fasen)
     manifest["rij_aantallen"]["college_niveau"] = save(college, "college_niveau")
 
-                                                                          
+
     (DATA_DIR / "_manifest.json").write_text(
         json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8"
     )

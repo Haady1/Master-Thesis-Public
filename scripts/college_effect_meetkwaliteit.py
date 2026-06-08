@@ -1,42 +1,3 @@
-"""College-effect op meetkwaliteit (groen-aandeel) — reproduceerbare herrekening + caveat.
-
-Wat dit script doet
--------------------
-Levert de cijfers voor de DV2-robuustheidsrij "College-effect" in de scriptie
-(`master_thesis_conceptversie.tex`). Het berekent per adviescollege het aandeel
-adviesrapporten met meetkwaliteit-label *groen* en maakt de bijbehorende
-"mini-college-caveat" hard: hoeveel colleges hebben maar één gevalideerd rapport
-(en dus per definitie 0% of 100% groen), en wat is de mediaan onder colleges met
-n>=2 rapporten.
-
-Herkomst van de data (bron-van-waarheid)
-----------------------------------------
-De per-document meetkwaliteit-labels (groen/oranje/rood) zijn een BEVROREN
-validatie-artefact uit de adviesextractie-validatie. Het per-college groen-aandeel
-wordt berekend in `thesis/Analyse/DV2_betrouwbaarheid_AI_documentanalyse_validatie.ipynb`,
-cel "college_summary" (groupby college over advies_docs_labeled), en geexporteerd naar
-`thesis/Analyse/data/college_effect_groen_oranje.csv`. Dit script leest die canonieke
-CSV en leidt daar de scriptie-cijfers + caveat reproduceerbaar uit af. Omdat de labels
-bevroren zijn, schalen ze niet mee met latere corpusgroei; daarom is dit een
-expliciete peildatum-rapportage en geen live DB-query.
-
-Inputs
-------
-  thesis/Analyse/data/college_effect_groen_oranje.csv
-    (kolommen: college, n, pct_groen, pct_oranje, pct_rood, woorden_*, actoren_*)
-
-Outputs (print naar stdout, geen schrijfacties)
------------------------------------------------
-  - pct_groen voor de vier in de scriptie genoemde colleges
-  - caveat: aantal colleges met n==1 (0%/100%), mediaan pct_groen voor n>=2
-  - mediaan over alle colleges
-
-Plaats in de pijplijn
----------------------
-Analyse-zijde van DV2 (robuustheid/meetkwaliteit). Wijzigt niets; levert alleen de
-getallen voor de scriptietekst, peildatum gelijk aan de CSV-export.
-
-"""
 from __future__ import annotations
 
 from pathlib import Path
@@ -46,7 +7,7 @@ import pandas as pd
 BASE_DIR = Path(__file__).resolve().parent
 CSV_PATH = BASE_DIR / "data" / "college_effect_groen_oranje.csv"
 
-                                                                  
+
 GENOEMDE_COLLEGES = [
     "Adviesraad voor wetenschap, technologie en innovatie",
     "Onderwijsraad",

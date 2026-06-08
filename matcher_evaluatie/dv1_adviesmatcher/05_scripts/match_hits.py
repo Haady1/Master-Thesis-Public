@@ -1,39 +1,3 @@
-"""Koppel matcher-kandidaten aan de grondwaarheid via tekst-overeenkomst.
-
-Wat dit doet
-------------
-Leest de kandidaten van een discovery-run (run_discovery.py) en bepaalt per
-grondwaarheid-rapport of de matcher de OFFICIELE-BEKENDMAKING-kopie heeft gevonden.
-Een "hit" stellen we vast op tekst-Jaccard tussen de website-versie (grondwaarheid)
-en de kandidaat-tekst uit public.overheidsdocumenten. Zo is de koppeling onafhankelijk
-van document-id's (die verschillen tussen website en officiele bekendmaking).
-
-Zuiverheid
-----------
-Kandidaten uit public.documenten (de website/legacy-advieslaag) tellen NIET mee als
-hit: de matcher mag de website-kopie niet "terugvinden". Alleen kandidaten uit de
-officiele bekendmakingen (document_type != 'public.documenten') zijn geldige hits.
-
-In-/uitvoer
------------
-Inputs:
-- --sample-fp      groundtruth_sample_fp.jsonl   (recall-grondwaarheid, ~50)
-- --full-fp        groundtruth_full_fp.jsonl     (alle website-rapporten, voor precision)
-- --groundtruth    groundtruth_sample.csv        (metadata voor leesbaarheid)
-- --candidates     <run>.candidates.jsonl
-- --jaccard        drempel (default 0.6)
-- --label          naam van de run (bijv. runA_det / runB_vlam)
-
-Outputs (in --out-dir):
-- report_hits_<label>.csv / .jsonl   : per grondwaarheid-rapport hit/rang/route/llm_label
-- candidate_eval_<label>.jsonl       : per officiele kandidaat match-info + llm_label
-                                       (basis voor precision in evaluate_metrics.py)
-
-Plaats in de pijplijn
----------------------
-Stap 3 van matcher/advies/evaluatie. Read-only t.o.v. de database.
-
-"""
 from __future__ import annotations
 
 import argparse
@@ -79,11 +43,9 @@ def load_candidates(path: Path) -> list[dict]:
     return rows
 
 def is_official(candidate: dict) -> bool:
-    """True als de kandidaat uit de officiele bekendmakingen komt (niet website)."""
     return (candidate.get("document_type") or "") != "public.documenten"
 
 def dedupe_official_by_id(candidates: list[dict]) -> dict[int, list[dict]]:
-    """Per college: officiele kandidaten ontdubbeld op document-id (beste rerank-score)."""
     by_college: dict[int, dict[str, dict]] = defaultdict(dict)
     for c in candidates:
         if not is_official(c):
@@ -99,7 +61,7 @@ def dedupe_official_by_id(candidates: list[dict]) -> dict[int, list[dict]]:
             c["_rerank"] = rerank
             by_college[college][cid] = c
         else:
-                                                                              
+
             if rerank > existing["_rerank"]:
                 existing["_rerank"] = rerank
                 existing["scores"] = c.get("scores")
@@ -109,7 +71,6 @@ def dedupe_official_by_id(candidates: list[dict]) -> dict[int, list[dict]]:
     return {college: list(d.values()) for college, d in by_college.items()}
 
 def assign_ranks(cands: list[dict]) -> None:
-    """Geef rang 1..n op aflopende rerank-score (deterministisch, tie-break op id)."""
     ordered = sorted(cands, key=lambda c: (-(c.get("_rerank") or 0), str(c.get("candidate_document_id"))))
     for i, c in enumerate(ordered, start=1):
         c["_rank"] = i
@@ -163,12 +124,12 @@ async def main() -> None:
     for cands in official_by_college.values():
         assign_ranks(cands)
 
-                                                                         
+
     all_ids = [c["candidate_document_id"] for cands in official_by_college.values() for c in cands]
     texts = await fetch_candidate_texts(sorted(set(all_ids)))
     cand_fp: dict[str, set] = {cid: fingerprint(txt) for cid, txt in texts.items()}
 
-                                                                                          
+
     report_rows = []
     for s in sample:
         advies_id = s["advies_id"]
@@ -190,7 +151,7 @@ async def main() -> None:
                 best = {"jac": jac, "cid": cid, "rank": c.get("_rank"),
                         "route": c.get("route"), "llm_label": c.get("llm_label"),
                         "title_ratio": tr, "date_diff": ddiff}
-                                                           
+
         best_title = {"ratio": 0.0, "cid": None, "rank": None, "date_diff": None}
         for c in cands:
             tr = fuzz.token_set_ratio(gt_title, c.get("candidate_title") or "")
@@ -223,7 +184,7 @@ async def main() -> None:
             "hit": hit_text or hit_title,
         })
 
-                                                                                             
+
     cand_rows = []
     for college, cands in official_by_college.items():
         full_reports = full_by_college.get(college, [])

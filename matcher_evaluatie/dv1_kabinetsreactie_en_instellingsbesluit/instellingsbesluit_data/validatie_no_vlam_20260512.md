@@ -105,4 +105,3 @@ stage, with 5.7% of VLAM-shortlisted candidate pairs corresponding to validated
 canonical links. The matcher should therefore be interpreted as a
 recall-oriented candidate generation component rather than as an autonomous
 final classifier.
-

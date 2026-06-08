@@ -1,30 +1,3 @@
-"""DV3-analyse: verwerking van advieselementen door kabinetsreacties.
-
-Wat dit script doet
--------------------
-Beantwoordt deelvraag 3 (DV3) van de masterscriptie: hoe verhouden kabinetsreacties
-zich tot afzonderlijke probleemdefinities en aanbevelingen, en verschilt die
-verwerking tussen beide elementtypen? Het rekent corpusbreed en RE-RUNBAAR
-(geen hardcoded aantallen) rechtstreeks op de live PostgreSQL-database.
-
-Input
------
-- pipeline.kabinetsreactie_aanbeveling_matches  (1 rij per advies-element x reactie)
-- pipeline.kabinetsreactie_analyse              (reactie -> bron-advies koppeling)
-- corpus.adviesdocumenten / register.adviescollege_fasen (filter + college)
-
-Output
-------
-Een dict `resultaten` met alle tellingen, aandelen, Wilson-intervallen,
-Cramer's V (+ clustering-spreiding), de 3 noemer-varianten, de twee dimensies
-en de meetkwaliteit-stratificatie. Print een leesbare samenvatting.
-
-Plaats in de pijplijn
----------------------
-Leeslaag bovenop de kabinetsreactiepipeline (fase 6). Wijzigt niets; alleen SELECT.
-Het notebook DV3_verwerking_advieselementen.ipynb gebruikt dezelfde functies.
-
-"""
 
 from __future__ import annotations
 
@@ -41,13 +14,12 @@ from scipy.stats import chi2_contingency
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from pg_database.checks.advies_validatie.data_loading import _get_db_connection              
+from pg_database.checks.advies_validatie.data_loading import _get_db_connection
 
 SEED = 100
 N_RESAMPLE = 100
 
-                                                                                     
-                                                                          
+
 KLASSE6 = {
     "overgenomen": "substantieel",
     "gedeeltelijk_overgenomen": "substantieel",
@@ -63,20 +35,10 @@ KLASSE6 = {
 }
 VANGNET = {"onduidelijk", "niet_herkenbaar_verwerkt"}
 
-                                                                                        
-                                                                                     
-                                                                                       
-                                                                                        
-                                                      
+
 POSTFIX_RUN_DATUM = "2026-06-03"
 
-                                                                            
-                                                          
-                                                                    
-                                                                                          
-                                                                                   
-                                                                                         
-                                                          
+
 SCOPE_CTE = """
     WITH scope_fasen AS (
         SELECT f.id FROM register.adviescollege_fasen f
@@ -92,11 +54,7 @@ SCOPE_CTE = """
     )
 """
 
-                                                                                     
-                                                                                        
-                                                                                            
-                                                                                          
-                                                                                  
+
 FILTER_SQL = f"""
     FROM pipeline.kabinetsreactie_aanbeveling_matches m
     JOIN pipeline.kabinetsreactie_analyse a
@@ -110,7 +68,6 @@ FILTER_SQL = f"""
 """
 
 def _modal(lst):
-    """Modale (meest voorkomende) waarde uit een lijst; None bij leeg."""
     if not isinstance(lst, list) or not lst:
         return None
     vals = [str(x) for x in lst if x not in (None, "")]
@@ -119,7 +76,6 @@ def _modal(lst):
     return Counter(vals).most_common(1)[0][0]
 
 def load_elementen() -> pd.DataFrame:
-    """Laad alle gefilterde advies-element x reactie-rijen met de twee dimensies."""
     conn = _get_db_connection()
     sql = f"""
         {SCOPE_CTE}
@@ -155,7 +111,7 @@ def load_elementen() -> pd.DataFrame:
     df = df.drop(columns=["kpos_list", "opv_list"])
     df["klasse6"] = df["verwerkingslabel"].map(KLASSE6).fillna("ambigu")
 
-                              
+
     collegetype_mapping = {
         'Permanent adviescollege': 'vast',
         'Tijdelijk adviescollege': 'tijdelijk',
@@ -167,7 +123,6 @@ def load_elementen() -> pd.DataFrame:
     return df
 
 def wilson_ci(k: int, n: int, z: float = 1.96):
-    """95%-Wilson-betrouwbaarheidsinterval voor een aandeel (k successen op n)."""
     if n == 0:
         return (0.0, 0.0)
     p = k / n
@@ -177,7 +132,6 @@ def wilson_ci(k: int, n: int, z: float = 1.96):
     return (max(0.0, center - half), min(1.0, center + half))
 
 def verdeling(series: pd.Series) -> pd.DataFrame:
-    """Tellingen, aandelen en 95%-Wilson-intervallen per categorie."""
     n = len(series)
     vc = series.value_counts()
     rows = []
@@ -190,7 +144,6 @@ def verdeling(series: pd.Series) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 def cramers_v(x: pd.Series, y: pd.Series) -> dict:
-    """Cramer's V (+ chi2, p, n) voor de associatie tussen twee categorische reeksen."""
     tab = pd.crosstab(x, y)
     chi2, p, _, _ = chi2_contingency(tab)
     n = tab.values.sum()
@@ -199,13 +152,6 @@ def cramers_v(x: pd.Series, y: pd.Series) -> dict:
     return {"cramers_v": round(v, 4), "chi2": round(chi2, 1), "p_value": p, "n": int(n)}
 
 def cramers_v_clustered(df: pd.DataFrame, label_col: str, x_col: str = "advies_element_type") -> dict:
-    """Clustering-gevoeligheid: V op herbemonstering van 1 element per reactie.
-
-    Args:
-        df: DataFrame met reactie_id en twee kolommen voor associatie.
-        label_col: y-kolom voor cramers_v().
-        x_col: x-kolom voor cramers_v() (default: "advies_element_type").
-    """
     rng = np.random.default_rng(SEED)
     vs = []
     groups = df.groupby("reactie_id").indices
@@ -220,7 +166,6 @@ def cramers_v_clustered(df: pd.DataFrame, label_col: str, x_col: str = "advies_e
             "p95": round(float(np.percentile(vs, 95)), 4)}
 
 def sensitivity_varianten(df: pd.DataFrame) -> pd.DataFrame:
-    """Aandeel substantieel/retorisch onder 3 noemer-varianten, per elementtype."""
     rows = []
     varianten = {
         "incl_alles": df,
@@ -239,21 +184,7 @@ def sensitivity_varianten(df: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 def collegetype_analyse(df: pd.DataFrame) -> dict:
-    """Exploratieve analyse: collegetype x verwerkingsklasse.
 
-    WAARSCHUWING: Cellen kunnen klein zijn (vooral 'eenmalig' collegetypes). Elementen
-    binnen dezelfde reactie zijn niet onafhankelijk; clustered Cramer's V corrigeert hier
-    gedeeltelijk voor, maar geeft geen causaliteit.
-
-    Returns:
-        dict met:
-        - crosstab_6: DataFrame per collegetype (rows) x 6-klasse (cols)
-          met n_elementen, n_reacties, n_adviezen, en % per klasse.
-        - cramers_6: Cramer's V(collegetype, klasse6) op element-niveau.
-        - cramers_6_clustered: Clustered Cramer's V (1 element per reactie).
-        - cramers_11: Cramer's V(collegetype, verwerkingslabel) op element-niveau.
-    """
-                                                                
     rows = []
     for ct in df["collegetype"].unique():
         sub = df[df["collegetype"] == ct]
@@ -261,7 +192,7 @@ def collegetype_analyse(df: pd.DataFrame) -> dict:
         n_reacties = sub["reactie_id"].nunique()
         n_adviezen = sub["advies_id"].nunique()
 
-                            
+
         klasse_counts = sub["klasse6"].value_counts()
         klasse_totals = {
             "substantieel": 0, "retorisch": 0, "ambigu": 0,
@@ -283,7 +214,7 @@ def collegetype_analyse(df: pd.DataFrame) -> dict:
 
     crosstab_6 = pd.DataFrame(rows).sort_values("n_elementen", ascending=False)
 
-                        
+
     cramers_6 = cramers_v(df["collegetype"], df["klasse6"])
     cramers_6_clustered = cramers_v_clustered(df, "klasse6", x_col="collegetype")
     cramers_11 = cramers_v(df["collegetype"], df["verwerkingslabel"])
@@ -296,13 +227,6 @@ def collegetype_analyse(df: pd.DataFrame) -> dict:
     }
 
 def meetkwaliteit_stratificatie(df: pd.DataFrame) -> pd.DataFrame:
-    """Proxy voor meetkwaliteit per reactie: aandeel 'onduidelijk'.
-
-    De DV2-usability-labeling draait op de JSON-batch; corpusbreed gebruiken we hier
-    als transparant, grof signaal het aandeel 'onduidelijk' per reactie. Reacties met
-    een laag onduidelijk-aandeel (<33%) = 'groener'; >=67% = 'roder'. Expliciet een
-    grove proxy, geen exacte heruitvoering van het DV2-kader.
-    """
     per_reactie = df.groupby("reactie_id")["verwerkingslabel"].apply(
         lambda s: (s == "onduidelijk").mean()
     )
@@ -321,12 +245,6 @@ def meetkwaliteit_stratificatie(df: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 def dekking() -> dict:
-    """Dekkingscontrole: reacties met/zonder elementen (post-fix runs, run-bewust).
-
-    Gebruikt dezelfde Nederlandstalig-filter (d.is_english IS NOT TRUE) als load_elementen,
-    zodat de dekkingsnoemer gelijk is aan de hoofdnoemer. Zonder die filter werden Engelstalige
-    advies-reacties meegeteld (490 i.p.v. 482), wat een onterecht 'dekkingsgat' suggereerde.
-    """
     conn = _get_db_connection()
     q = f"""
         {SCOPE_CTE}
@@ -367,7 +285,7 @@ def run():
         for et in ["aanbeveling", "probleemdefinitie"]
     }
 
-                                    
+
     res["dim_positie_per_type"] = {
         et: verdeling(df[df["advies_element_type"] == et]["kabinetspositie"])
         for et in ["aanbeveling", "probleemdefinitie"]
@@ -377,7 +295,7 @@ def run():
         for et in ["aanbeveling", "probleemdefinitie"]
     }
 
-                
+
     res["cramers_11"] = cramers_v(df["advies_element_type"], df["verwerkingslabel"])
     res["cramers_6"] = cramers_v(df["advies_element_type"], df["klasse6"])
     res["cramers_11_clustered"] = cramers_v_clustered(df, "verwerkingslabel")

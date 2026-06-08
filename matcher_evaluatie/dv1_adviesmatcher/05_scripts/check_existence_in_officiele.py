@@ -1,31 +1,3 @@
-"""Bestaat het gemiste rapport wel in de officiele bekendmakingen? (corpus-gat vs matcher-miss)
-
-!! WAARSCHUWING - METHODE ONBETROUWBAAR (2026-06-05) !!
-Validatie op 7 bekend-aanwezige rapporten vond er slechts 1/7 terug: de substring-zoektocht
-op lange woorden geeft veel vals-negatieven (lange samengestelde woorden worden bij
-PDF-extractie anders afgebroken/gespeld; datumvenster mogelijk te krap). De uitkomst
-"0/43 = corpus-gat" is DAAROM NIET GELDIG. Gebruik dit script niet voor conclusies tot
-er een tekstindex (pg_trgm GIN op content_text) bestaat voor een snelle, betrouwbare
-full-text bestaan-check.
-
-Wat dit doet
-------------
-Voor elk grondwaarheid-rapport dat de matcher NIET vond, zoekt dit script in de hele
-public.overheidsdocumenten (document_type='Bijlage') of er toch een kopie bestaat.
-Per rapport bouwen we een distinctief patroon van 8 gespreide lange woorden (in volgorde,
-met wildcards ertussen), robuust tegen OCR-/afbreekverschillen. Treffers bevestigen we
-met tekst-Jaccard. Zo splitsen we:
-- corpus-gat:   rapport staat niet in de officiele bekendmakingen -> miss is geen matcher-fout.
-- matcher-miss: rapport staat er wel, maar de retrieval vond het niet -> echte matcher-fout.
-
-In-/uitvoer
------------
-Inputs: report_hits_<label>.jsonl (uit match_hits.py) + corpus.adviesdocument_teksten.
-Outputs: stdout + existence_<label>.csv.
-
-Read-only t.o.v. de database.
-
-"""
 from __future__ import annotations
 
 import argparse
@@ -47,12 +19,6 @@ from matcher.advies.evaluatie.text_fingerprint import fingerprint, jaccard, norm
 DEFAULT_OUT_DIR = Path(__file__).resolve().parent / "artifacts"
 
 def distinctive_patterns(text: str, n: int = 3) -> list[str]:
-    """Geef tot n goedkope substring-patronen: de langste, meest distinctieve woorden.
-
-    Enkelvoudige substrings ('%woord%') zijn veel goedkoper te scannen dan geordende
-    wildcard-ketens. We pakken de langste unieke woorden (lange Nederlandse samenstellingen
-    zijn zeer distinctief); eventuele losse valse treffers vangen we daarna met Jaccard af.
-    """
     toks = sorted({t for t in normalize_tokens(text) if len(t) >= 10}, key=len, reverse=True)
     if len(toks) < 1:
         toks = sorted({t for t in normalize_tokens(text) if len(t) >= 8}, key=len, reverse=True)
@@ -89,8 +55,7 @@ async def main() -> None:
         bodies = {r["advies_id"]: r["body"] for r in meta_rows}
         dates = {r["advies_id"]: r["d"] for r in meta_rows}
 
-                                                                                              
-                                                                                             
+
         PER_REPORT_SQL = (
             "SELECT id, title, content_text FROM public.overheidsdocumenten "
             "WHERE document_type='Bijlage' AND length(coalesce(content_text,''))>500 "

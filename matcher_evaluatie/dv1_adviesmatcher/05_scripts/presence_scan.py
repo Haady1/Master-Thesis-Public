@@ -1,27 +1,3 @@
-"""Betrouwbaar bepalen welke website-rapporten echt in de officiele bekendmakingen staan.
-
-Wat dit doet
-------------
-Streamt alle Bijlage-documenten uit public.overheidsdocumenten (eerste 20.000 tekens) en
-matcht ze met tekst-Jaccard tegen de full-set website-rapporten (groundtruth_full_fp-basis,
-hier opnieuw berekend op dezelfde 20.000-teken-basis voor een eerlijke vergelijking).
-Gebruikt een omgekeerde shingle-index zodat elke bijlage maar één keer hoeft te worden
-verwerkt. Dit vervangt de onbetrouwbare substring-bestaan-check (die 1/7 haalde).
-
-Waarom
-------
-Voor een ZUIVERE recall-test willen we alleen rapporten waarvan aantoonbaar een kopie in de
-officiele bekendmakingen bestaat. Dan is elke gemiste = echte matcher-miss, geen corpus-gat.
-
-In-/uitvoer
------------
-Inputs: corpus.adviesdocument_teksten (rapportteksten) + public.overheidsdocumenten (bijlagen).
-Outputs: presence_full.csv (per rapport: aanwezig, beste officiele id, jaccard).
-Validatie: print of de bekende-aanwezige hits (uit report_hits) ook als aanwezig uitkomen.
-
-Read-only t.o.v. de database.
-
-"""
 from __future__ import annotations
 
 import argparse
@@ -54,7 +30,7 @@ async def main() -> None:
     conn = await asyncpg.connect(db_config.asyncpg_dsn)
     try:
         await conn.execute("SET statement_timeout = '0'")
-                                                                                          
+
         rep_rows = await conn.fetch(
             "SELECT cd.id AS advies_id, cd.adviescollege_id, "
             "       LEFT(coalesce(t.text_clean, t.text, t.text_digital, t.text_ocr), $2) AS body "
@@ -76,7 +52,7 @@ async def main() -> None:
                 rep_fp[r["advies_id"]] = fp
         print(f"Rapporten (full-set) met bruikbare fingerprint: {len(rep_fp)}", flush=True)
 
-                                                     
+
         inv: dict[int, list[int]] = defaultdict(list)
         for aid, fp in rep_fp.items():
             for sh in fp:
@@ -84,7 +60,7 @@ async def main() -> None:
         rep_size = {aid: len(fp) for aid, fp in rep_fp.items()}
         best: dict[int, tuple[float, str | None]] = {aid: (0.0, None) for aid in rep_fp}
 
-                                                                        
+
         print("Streamen van bijlagen...", flush=True)
         processed = 0
         async with conn.transaction():
@@ -134,7 +110,7 @@ async def main() -> None:
     print("")
     print(f"=== Aanwezig in officiele bekendmakingen (full-set) ===")
     print(f"  aanwezig: {len(present_ids)} / {len(rep_fp)}")
-                                
+
     rh = args.out_dir / "report_hits_runA_det.jsonl"
     if rh.exists():
         hits = [json.loads(l)["advies_id"] for l in rh.read_text(encoding="utf-8").splitlines()

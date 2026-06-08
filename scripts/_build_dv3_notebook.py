@@ -1,8 +1,3 @@
-"""Bouwt en voert het DV3-notebook uit op basis van dv3_analyse.py (re-runbaar).
-
-Draai: python thesis/Analyse/_build_dv3_notebook.py
-Schrijft thesis/Analyse/DV3_verwerking_advieselementen.ipynb met gevulde outputcellen.
-"""
 from __future__ import annotations
 from pathlib import Path
 import nbformat as nbf
@@ -26,9 +21,6 @@ cells = [
         "bijkomt). De labels zijn op individueel elementniveau zwak gemeten (zie DV2, "
         "Krippendorff α ≈ 0,19); DV3 rapporteert daarom uitsluitend **geaggregeerde "
         "aandelen**, met meetkwaliteit als gevoeligheid.\n\n"
-        "**Changelog**\n"
-        "- 2026-06-04: Eerste versie. Noemer = match-rijen, DV2-gefilterd via het "
-        "advies-document. Twee dimensies uit `finale_verwerkingsitem.match_bewijs`.\n\n"
         "**Input:** `pipeline.kabinetsreactie_aanbeveling_matches`, "
         "`pipeline.kabinetsreactie_analyse`, `corpus.adviesdocumenten`, "
         "`register.adviescollege_fasen`.  \n"

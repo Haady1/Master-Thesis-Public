@@ -1,30 +1,3 @@
-"""Bereken recall@k (deterministisch) en precision/recall/F (VLAM) voor de advies-matcher.
-
-Wat dit doet
-------------
-Leest de hit-tabellen van match_hits.py en rapporteert:
-- Deterministische pipeline (Run A): candidate-recall @top-5/10/25 met 95%-Wilson-CI,
-  rangverdeling, route-bijdrage en per-college-uitsplitsing. Meet of de RETRIEVAL het
-  officiele-bekendmaking-rapport bovenaan krijgt.
-- VLAM (Run B, indien aanwezig): precision, recall en F1 van het VLAM-oordeel
-  "dit is een adviesrapport". Recall = van de in-de-pool gevonden grondwaarheid-rapporten,
-  welk deel VLAM advies-positief labelt. Precision = van de VLAM advies-positieve
-  kandidaten, welk deel echt een adviesrapport is (tekst-match met de full-set).
-
-Hergebruik
-----------
-wilson_interval uit thesis/Analyse/dv1_matcher_recall/evaluate_kabinetsreactie_recall.py.
-
-In-/uitvoer
------------
-Inputs: report_hits_<label>.jsonl en candidate_eval_<label>.jsonl (uit match_hits.py).
-Outputs: stdout + report_<label>.json + report_<label>.md.
-
-Plaats in de pijplijn
----------------------
-Stap 4 van matcher/advies/evaluatie. Geen database-toegang.
-
-"""
 from __future__ import annotations
 
 import argparse
@@ -37,7 +10,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[3]
 DV1_DIR = PROJECT_ROOT / "thesis" / "Analyse" / "dv1_matcher_recall"
 if str(DV1_DIR) not in sys.path:
     sys.path.insert(0, str(DV1_DIR))
-from evaluate_kabinetsreactie_recall import wilson_interval              
+from evaluate_kabinetsreactie_recall import wilson_interval
 
 DEFAULT_OUT_DIR = Path(__file__).resolve().parent / "artifacts"
 TOPK = (5, 10, 25)
@@ -85,7 +58,7 @@ def deterministic_metrics(reports: list[dict]) -> dict:
                              "hits": in_pool, "n": n}
     out["rangverdeling"] = rank_band(reports)
     out["route_bijdrage"] = dict(Counter(r["best_route"] for r in reports if r.get("hit_text") and r.get("best_route")).most_common())
-                  
+
     by_col = defaultdict(list)
     for r in reports:
         by_col[r.get("college", "?")].append(r)
@@ -104,11 +77,11 @@ def vlam_metrics(reports: list[dict], cands: list[dict]) -> dict | None:
     if not has_labels:
         return None
     in_pool = [r for r in reports if r.get("hit_text")]
-                                                                                     
+
     recalled = sum(1 for r in in_pool if r.get("best_llm_label") in {"FINAL_ADVICE_OR_REPORT", "INDIVIDUAL_ADVICE"})
     recall = recalled / len(in_pool) if in_pool else 0.0
     recall_over_50 = recalled / len(reports) if reports else 0.0
-                                                                                   
+
     pos = [c for c in cands if c.get("llm_positive")]
     tp = sum(1 for c in pos if c.get("is_real_advice"))
     precision = tp / len(pos) if pos else 0.0
