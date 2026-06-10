@@ -1,0 +1,436 @@
+{
+  "counts_by_codebase": {
+    "AI adviescollege documenten - classificatie and metadata": 35,
+    "AI adviescollege documenten - validatie": 22,
+    "AI kabinetsreactie agent": 25,
+    "matcher/advies": 18,
+    "matcher/instellingsbesluit": 19,
+    "matcher/kabinetsreactie": 14,
+    "matcher/parlementair_v2": 5
+  },
+  "counts_by_status": {
+    "active": 130,
+    "manual": 3,
+    "missing": 1,
+    "technical": 4
+  },
+  "export_version": "prompts_schema_export_20260605_v1",
+  "files": {
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/01_classificatie/agent_01_hoofdclassificatie/prompt.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/classificatie_agents/classification_agent/prompt.py::CLASSIFICATION_INSTRUCTION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/01_classificatie/agent_02_verificatie/build_arbiter_header.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/classificatie_agents/verification_agent/prompt.py::build_arbiter_header"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/01_classificatie/agent_02_verificatie/prompt_arbiter_framing_template.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/classificatie_agents/verification_agent/prompt.py::ARBITER_FRAMING_TEMPLATE"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/01_classificatie/agent_02_verificatie/prompt_verification_framing.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/classificatie_agents/verification_agent/prompt.py::VERIFICATION_FRAMING"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/01_classificatie/agent_03_subclassificatie/prompts/bestuur_governance.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/classificatie_agents/sub_agents/classification_prompts/BESTUUR_GOVERNANCE.txt::BESTUUR_GOVERNANCE.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/01_classificatie/agent_03_subclassificatie/prompts/brief_administratief.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/classificatie_agents/sub_agents/classification_prompts/BRIEF_ADMINISTRATIEF.txt::BRIEF_ADMINISTRATIEF.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/01_classificatie/agent_03_subclassificatie/prompts/brief_inhoudelijk.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/classificatie_agents/sub_agents/classification_prompts/BRIEF_INHOUDELIJK.txt::BRIEF_INHOUDELIJK.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/01_classificatie/agent_03_subclassificatie/prompts/communicatie.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/classificatie_agents/sub_agents/classification_prompts/COMMUNICATIE.txt::COMMUNICATIE.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/01_classificatie/agent_03_subclassificatie/prompts/correspondentie_inkomend.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/classificatie_agents/sub_agents/classification_prompts/CORRESPONDENTIE_INKOMEND.txt::CORRESPONDENTIE_INKOMEND.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/01_classificatie/agent_03_subclassificatie/prompts/instrumenten.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/classificatie_agents/sub_agents/classification_prompts/INSTRUMENTEN.txt::INSTRUMENTEN.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/01_classificatie/agent_03_subclassificatie/prompts/interne_stukken.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/classificatie_agents/sub_agents/classification_prompts/INTERNE_STUKKEN.txt::INTERNE_STUKKEN.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/01_classificatie/agent_03_subclassificatie/prompts/juridisch_hr.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/classificatie_agents/sub_agents/classification_prompts/JURIDISCH_HR.txt::JURIDISCH_HR.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/01_classificatie/agent_03_subclassificatie/prompts/rapport_advies.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/classificatie_agents/sub_agents/classification_prompts/RAPPORT_ADVIES.txt::RAPPORT_ADVIES.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/01_classificatie/agent_03_subclassificatie/prompts/rapport_onderzoek.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/classificatie_agents/sub_agents/classification_prompts/RAPPORT_ONDERZOEK.txt::RAPPORT_ONDERZOEK.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/01_classificatie/agent_03_subclassificatie/prompts/rapport_overig.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/classificatie_agents/sub_agents/classification_prompts/RAPPORT_OVERIG.txt::RAPPORT_OVERIG.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/01_classificatie/agent_03_subclassificatie/prompts/varia.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/classificatie_agents/sub_agents/classification_prompts/VARIA.txt::VARIA.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/01_classificatie/agent_03_subclassificatie/prompts/vergaderdocumenten.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/classificatie_agents/sub_agents/classification_prompts/VERGADERDOCUMENTEN.txt::VERGADERDOCUMENTEN.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/01_classificatie/agent_03_subclassificatie/schema.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/classificatie_agents/schemas/classification_schemas.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/01_classificatie/agent_04_document_summary/prompt.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/document_summary_agent/prompt.py::DOCUMENT_SUMMARY_INSTRUCTION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/01_classificatie/agent_04_document_summary/schema.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/document_summary_agent/schema.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/02_metadata/aanvraag_metadata/prompt.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/metadata_agent/aanvraag_agent/prompt.py::AANVRAAG_AANKONDIGING_METADATA_INSTRUCTION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/02_metadata/aanvraag_metadata/schema.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/metadata_agent/aanvraag_agent/schema.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/02_metadata/brief_metadata/prompt.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/metadata_agent/brief_agent/prompt.py::BRIEF_METADATA_INSTRUCTION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/02_metadata/brief_metadata/schema.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/metadata_agent/brief_agent/schema.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/02_metadata/gedeelde_metadata_contracten/instructies_common_schemas_self_check_instruction.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/metadata_agent/schemas/common_schemas.py::SELF_CHECK_INSTRUCTION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/02_metadata/gedeelde_metadata_contracten/instructies_common_schemas_thema_codes_instruction.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/metadata_agent/schemas/common_schemas.py::THEMA_CODES_INSTRUCTION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/02_metadata/gedeelde_metadata_contracten/instructies_common_schemas_tracking_keywords_instruction.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/metadata_agent/schemas/common_schemas.py::TRACKING_KEYWORDS_INSTRUCTION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/02_metadata/gedeelde_metadata_contracten/schema.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/metadata_agent/schemas/common_schemas.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/02_metadata/kabinetsreactie_metadata/prompt.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/metadata_agent/kabinetsreactie_agent/prompt.py::KABINETSREACTIE_METADATA_INSTRUCTION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/02_metadata/kabinetsreactie_metadata/schema.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/metadata_agent/kabinetsreactie_agent/schema.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/02_metadata/legacy_metadata/prompt.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/metadata_agent/legacy_agent/prompt.py::LEGACY_METADATA_INSTRUCTION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/02_metadata/legacy_metadata/schema.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/metadata_agent/legacy_agent/schema.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/02_metadata/rapport_metadata/prompt.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/metadata_agent/rapport_agent/prompt.py::RAPPORT_METADATA_INSTRUCTION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/02_metadata/rapport_metadata/schema.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/metadata_agent/rapport_agent/schema.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/02_metadata/uniforme_metadata/schema.md": [
+      "AI agents/AI adviescollege documenten - classificatie and metadata/agents/metadata_agent/schemas/uniform_schema.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/agent_01_adviesrapport_gate/prompt.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/agents/adviesrapport_gate/prompt.py::ADVIESRAPPORT_GATE_INSTRUCTION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/agent_01_adviesrapport_gate/schema.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/agents/adviesrapport_gate/schema.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/agent_02_aanbeveling_recall/prompt.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/agents/aanbeveling_recall/prompt.py::AANBEVELING_RECALL_INSTRUCTION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/agent_02_aanbeveling_recall/schema.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/agents/aanbeveling_recall/schema.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/agent_03_aanbeveling_precision/prompt.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/agents/aanbeveling_precision/prompt.py::AANBEVELING_PRECISION_INSTRUCTION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/agent_03_aanbeveling_precision/schema.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/agents/aanbeveling_precision/schema.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/agent_04_probleemdefinitie_recall/prompt.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/agents/probleem_definitie_recall/prompt.py::PROBLEEM_DEFINITIE_RECALL_INSTRUCTION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/agent_04_probleemdefinitie_recall/schema.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/agents/probleem_definitie_recall/schema.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/agent_05_probleemdefinitie_precision/prompt.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/agents/probleem_definitie_precision/prompt.py::PROBLEEM_DEFINITIE_PRECISION_INSTRUCTION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/agent_05_probleemdefinitie_precision/schema.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/agents/probleem_definitie_precision/schema.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/agent_06_probleemdefinitie_analyse/prompt.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/agents/probleem_definitie_analyse/prompt.py::PROBLEEM_DEFINITIE_ANALYSE_INSTRUCTION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/agent_06_probleemdefinitie_analyse/schema.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/agents/probleem_definitie_analyse/schema.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/agent_07_verwijzingen/prompt.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/agents/verwijzing_extractie/prompt.py::VERWIJZINGEN_EXTRACTIE_INSTRUCTION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/agent_07_verwijzingen/schema.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/agents/verwijzing_extractie/schema.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/agent_08_beleidslogica/prompt.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/agents/beleidslogica_agent/prompt.py::BELEIDSLOGICA_INSTRUCTION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/agent_08_beleidslogica/schema.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/agents/beleidslogica_agent/schema.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/agent_09_canonicalizer/prompt.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/agents/advies_canonicalizer/prompt.py::ADVIES_CANONICALIZER_INSTRUCTION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/agent_09_canonicalizer/schema.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/agents/advies_canonicalizer/schema.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/agent_10_rapport_analyse/prompt.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/agents/rapport_analyse/prompt.py::RAPPORT_ANALYSE_INSTRUCTION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/agent_10_rapport_analyse/schema.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/agents/rapport_analyse/schema.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/finale_output/canonical_schema.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/schemas/canonical_schemas.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/03_adviesextractie/finale_output/final_result_schema.md": [
+      "AI agents/AI adviescollege documenten - validatie/agents/advies_rapport_extractie_agent/schemas/final_result.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/legacy/missing_sources.md": [
+      "AI agents/AI kabinetsreactie agent/agents/reactie_analyse_agent.py::__source_file__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/shared/stage_06_enums_schema.md": [
+      "AI agents/AI kabinetsreactie agent/schemas/stage_06_enums.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_01_segmentatie/prompt.md": [
+      "AI agents/AI kabinetsreactie agent/agents/01_kabinetsreactie_segmentatie_agent_instruction.txt::01_kabinetsreactie_segmentatie_agent_instruction.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_01_segmentatie/schema.md": [
+      "AI agents/AI kabinetsreactie agent/schemas/stage_01_segmentatie.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_02_stramien/prompt.md": [
+      "AI agents/AI kabinetsreactie agent/agents/02_stramien_analyse_agent_instruction.txt.txt::02_stramien_analyse_agent_instruction.txt.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_02_stramien/schema.md": [
+      "AI agents/AI kabinetsreactie agent/schemas/stage_02_stramien.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_03_reverse_recall/prompt.md": [
+      "AI agents/AI kabinetsreactie agent/agents/03_adviesverwijzing_reverse_recall_agent_instruction.txt.txt::03_adviesverwijzing_reverse_recall_agent_instruction.txt.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_03_reverse_recall/schema.md": [
+      "AI agents/AI kabinetsreactie agent/schemas/stage_03_reverse_recall.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_04_candidate_pairs/prompt.md": [
+      "AI agents/AI kabinetsreactie agent/agents/04_candidate_pair_retrieval_agent_instruction.txt.txt::04_candidate_pair_retrieval_agent_instruction.txt.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_04_candidate_pairs/schema.md": [
+      "AI agents/AI kabinetsreactie agent/schemas/stage_04_candidate_pairs.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_05_semantische_match/prompt.md": [
+      "AI agents/AI kabinetsreactie agent/agents/05_semantische_match_agent_instruction.txt.txt::05_semantische_match_agent_instruction.txt.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_05_semantische_match/schema_stage_05_semantische_match_schema.md": [
+      "AI agents/AI kabinetsreactie agent/schemas/stage_05_semantische_match.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_05_semantische_match/schema_stage_05_semantische_match_semantischematchbasis.md": [
+      "AI agents/AI kabinetsreactie agent/schemas/stage_05_semantische_match.py::SemantischeMatchBasis"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_06_positie_opvolging/prompt.md": [
+      "AI agents/AI kabinetsreactie agent/agents/06_kabinetspositie_en_opvolging_agent_instruction.txt.txt::06_kabinetspositie_en_opvolging_agent_instruction.txt.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_06_positie_opvolging/schema.md": [
+      "AI agents/AI kabinetsreactie agent/schemas/stage_06_positie_opvolging.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_06a_positie/prompt.md": [
+      "AI agents/AI kabinetsreactie agent/agents/06a_kabinetspositie_agent_instruction.txt::06a_kabinetspositie_agent_instruction.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_06a_positie/schema.md": [
+      "AI agents/AI kabinetsreactie agent/schemas/stage_06a_positie.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_06b_context/prompt.md": [
+      "AI agents/AI kabinetsreactie agent/agents/06b_opvolgingscontext_agent_instruction.txt::06b_opvolgingscontext_agent_instruction.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_06b_context/schema.md": [
+      "AI agents/AI kabinetsreactie agent/schemas/stage_06b_context.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_07_voorlopige_labels/schema.md": [
+      "AI agents/AI kabinetsreactie agent/schemas/stage_07_voorlopige_labels.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_08_audit/prompt.md": [
+      "AI agents/AI kabinetsreactie agent/agents/08_audit_en_reconciliatie_agent_instruction.txt.txt::08_audit_en_reconciliatie_agent_instruction.txt.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_08_audit/schema.md": [
+      "AI agents/AI kabinetsreactie agent/schemas/stage_08_audit.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_09_eindanalyse/prompt.md": [
+      "AI agents/AI kabinetsreactie agent/agents/09_eindanalyse_agent_instruction.txt.txt::09_eindanalyse_agent_instruction.txt.txt"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_09_eindanalyse/schema.md": [
+      "AI agents/AI kabinetsreactie agent/schemas/stage_09_eindanalyse.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/ai_pipeline/04_kabinetsreactie_agent/stage_registry.md": [
+      "AI agents/AI kabinetsreactie agent/pipeline/document_pipeline.py::STAGE_DEFINITIONS"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/01_instellingsmatcher/prompts/llm_judge_discovery_document_classification_system_prompt.md": [
+      "matcher/instellingsbesluit/llm_judge.py::DISCOVERY_DOCUMENT_CLASSIFICATION_SYSTEM_PROMPT"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/01_instellingsmatcher/prompts/llm_judge_document_classification_system_prompt.md": [
+      "matcher/instellingsbesluit/llm_judge.py::DOCUMENT_CLASSIFICATION_SYSTEM_PROMPT"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/01_instellingsmatcher/prompts/llm_judge_known_college_url_validation_system_prompt.md": [
+      "matcher/instellingsbesluit/llm_judge.py::KNOWN_COLLEGE_URL_VALIDATION_SYSTEM_PROMPT"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/01_instellingsmatcher/prompts/llm_judge_system_prompt.md": [
+      "matcher/instellingsbesluit/llm_judge.py::SYSTEM_PROMPT"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/01_instellingsmatcher/prompts/llm_judge_visible_college_metadata_audit_system_prompt.md": [
+      "matcher/instellingsbesluit/llm_judge.py::VISIBLE_COLLEGE_METADATA_AUDIT_SYSTEM_PROMPT"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/01_instellingsmatcher/schemas/llm_judge_discovery_document_classification_output_schema.md": [
+      "matcher/instellingsbesluit/llm_judge.py::DISCOVERY_DOCUMENT_CLASSIFICATION_OUTPUT_SCHEMA"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/01_instellingsmatcher/schemas/llm_judge_document_classification_output_schema.md": [
+      "matcher/instellingsbesluit/llm_judge.py::DOCUMENT_CLASSIFICATION_OUTPUT_SCHEMA"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/01_instellingsmatcher/schemas/llm_judge_expected_output_schema.md": [
+      "matcher/instellingsbesluit/llm_judge.py::EXPECTED_OUTPUT_SCHEMA"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/01_instellingsmatcher/schemas/llm_judge_known_college_url_validation_output_schema.md": [
+      "matcher/instellingsbesluit/llm_judge.py::KNOWN_COLLEGE_URL_VALIDATION_OUTPUT_SCHEMA"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/01_instellingsmatcher/schemas/llm_judge_schema.md": [
+      "matcher/instellingsbesluit/llm_judge.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/01_instellingsmatcher/schemas/llm_judge_visible_college_metadata_audit_output_schema.md": [
+      "matcher/instellingsbesluit/llm_judge.py::VISIBLE_COLLEGE_METADATA_AUDIT_OUTPUT_SCHEMA"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/01_instellingsmatcher/technische_diagnose/diagnostic_judge_expected_diagnostic_schema.md": [
+      "matcher/instellingsbesluit/diagnostic_judge.py::EXPECTED_DIAGNOSTIC_SCHEMA"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/01_instellingsmatcher/technische_diagnose/diagnostic_judge_prompt_path.md": [
+      "matcher/instellingsbesluit/diagnostic_judge.py::PROMPT_PATH"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/01_instellingsmatcher/technische_diagnose/diagnostic_judge_schema.md": [
+      "matcher/instellingsbesluit/diagnostic_judge.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/01_instellingsmatcher/technische_diagnose/pipeline_error_explainer_prompt_pipeline_error_explainer_prompt_md.md": [
+      "matcher/instellingsbesluit/prompts/pipeline_error_explainer_prompt.md::pipeline_error_explainer_prompt.md"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/01_instellingsmatcher/versions_llm_judge_classifier_prompt_version.md": [
+      "matcher/instellingsbesluit/llm_judge.py::CLASSIFIER_PROMPT_VERSION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/01_instellingsmatcher/versions_llm_judge_discovery_classifier_prompt_version.md": [
+      "matcher/instellingsbesluit/llm_judge.py::DISCOVERY_CLASSIFIER_PROMPT_VERSION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/01_instellingsmatcher/versions_llm_judge_known_college_url_validation_prompt_version.md": [
+      "matcher/instellingsbesluit/llm_judge.py::KNOWN_COLLEGE_URL_VALIDATION_PROMPT_VERSION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/01_instellingsmatcher/versions_llm_judge_visible_college_metadata_audit_prompt_version.md": [
+      "matcher/instellingsbesluit/llm_judge.py::VISIBLE_COLLEGE_METADATA_AUDIT_PROMPT_VERSION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/02_adviesmatcher/handmatige_controle/export_chatgpt_review_write_prompt_file.md": [
+      "matcher/advies/export_chatgpt_review.py::_write_prompt_file"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/02_adviesmatcher/handmatige_controle/export_kandidaten_chatgpt_prompt_header.md": [
+      "matcher/advies/export_kandidaten_chatgpt.py::PROMPT_HEADER"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/02_adviesmatcher/prompts/llm_judge_system_prompt.md": [
+      "matcher/advies/llm_judge.py::SYSTEM_PROMPT"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/02_adviesmatcher/prompts/vlam_promotion_system_prompt.md": [
+      "matcher/advies/vlam_promotion.py::SYSTEM_PROMPT"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/02_adviesmatcher/schemas/comparative_review_expected_output_contract.md": [
+      "matcher/advies/comparative_review.py::_expected_output_contract"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/02_adviesmatcher/schemas/comparative_review_known_relation_roles.md": [
+      "matcher/advies/comparative_review.py::KNOWN_RELATION_ROLES"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/02_adviesmatcher/schemas/comparative_review_role_guidance.md": [
+      "matcher/advies/comparative_review.py::_role_guidance"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/02_adviesmatcher/schemas/comparative_review_schema.md": [
+      "matcher/advies/comparative_review.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/02_adviesmatcher/schemas/llm_judge_allowed_llm_labels.md": [
+      "matcher/advies/llm_judge.py::ALLOWED_LLM_LABELS"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/02_adviesmatcher/schemas/llm_judge_judgement_contract.md": [
+      "matcher/advies/llm_judge.py::JUDGEMENT_CONTRACT"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/02_adviesmatcher/schemas/llm_judge_schema.md": [
+      "matcher/advies/llm_judge.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/02_adviesmatcher/schemas/promotion_policy_coerce_vlam_promotion_result.md": [
+      "matcher/advies/promotion_policy.py::coerce_vlam_promotion_result"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/02_adviesmatcher/schemas/promotion_policy_schema.md": [
+      "matcher/advies/promotion_policy.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/02_adviesmatcher/schemas/vlam_promotion_schema.md": [
+      "matcher/advies/vlam_promotion.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/02_adviesmatcher/versions_comparative_review_comparative_review_prompt_version.md": [
+      "matcher/advies/comparative_review.py::COMPARATIVE_REVIEW_PROMPT_VERSION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/02_adviesmatcher/versions_llm_judge_llm_prompt_version.md": [
+      "matcher/advies/llm_judge.py::LLM_PROMPT_VERSION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/02_adviesmatcher/versions_promotion_policy_promotion_policy_version.md": [
+      "matcher/advies/promotion_policy.py::PROMOTION_POLICY_VERSION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/02_adviesmatcher/versions_vlam_promotion_vlam_promotion_prompt_version.md": [
+      "matcher/advies/vlam_promotion.py::VLAM_PROMOTION_PROMPT_VERSION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/03_kabinetsreactie_matcher/handmatige_controle/build_chatgpt_kabinetsreactie_search_batches_prompt_header.md": [
+      "matcher/kabinetsreactie/build_chatgpt_kabinetsreactie_search_batches.py::PROMPT_HEADER"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/03_kabinetsreactie_matcher/prompts/run_vlam_response_judge_system_prompt.md": [
+      "matcher/kabinetsreactie/run_vlam_response_judge.py::SYSTEM_PROMPT"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/03_kabinetsreactie_matcher/prompts/run_vlam_response_to_other_advice_chooser_system_prompt.md": [
+      "matcher/kabinetsreactie/run_vlam_response_to_other_advice_chooser.py::SYSTEM_PROMPT"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/03_kabinetsreactie_matcher/schemas/run_vlam_response_judge_allowed_target_types.md": [
+      "matcher/kabinetsreactie/run_vlam_response_judge.py::ALLOWED_TARGET_TYPES"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/03_kabinetsreactie_matcher/schemas/run_vlam_response_judge_allowed_verdicts.md": [
+      "matcher/kabinetsreactie/run_vlam_response_judge.py::ALLOWED_VERDICTS"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/03_kabinetsreactie_matcher/schemas/run_vlam_response_judge_build_vlam_user_payload.md": [
+      "matcher/kabinetsreactie/run_vlam_response_judge.py::build_vlam_user_payload"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/03_kabinetsreactie_matcher/schemas/run_vlam_response_judge_coerce_vlam_response_output.md": [
+      "matcher/kabinetsreactie/run_vlam_response_judge.py::coerce_vlam_response_output"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/03_kabinetsreactie_matcher/schemas/run_vlam_response_judge_schema.md": [
+      "matcher/kabinetsreactie/run_vlam_response_judge.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/03_kabinetsreactie_matcher/schemas/run_vlam_response_to_other_advice_chooser_allowed_choices.md": [
+      "matcher/kabinetsreactie/run_vlam_response_to_other_advice_chooser.py::ALLOWED_CHOICES"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/03_kabinetsreactie_matcher/schemas/run_vlam_response_to_other_advice_chooser_build_choice_payload.md": [
+      "matcher/kabinetsreactie/run_vlam_response_to_other_advice_chooser.py::build_choice_payload"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/03_kabinetsreactie_matcher/schemas/run_vlam_response_to_other_advice_chooser_coerce_chooser_output.md": [
+      "matcher/kabinetsreactie/run_vlam_response_to_other_advice_chooser.py::coerce_chooser_output"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/03_kabinetsreactie_matcher/schemas/run_vlam_response_to_other_advice_chooser_schema.md": [
+      "matcher/kabinetsreactie/run_vlam_response_to_other_advice_chooser.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/03_kabinetsreactie_matcher/versions_run_vlam_response_judge_prompt_version.md": [
+      "matcher/kabinetsreactie/run_vlam_response_judge.py::PROMPT_VERSION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/03_kabinetsreactie_matcher/versions_run_vlam_response_to_other_advice_chooser_prompt_version.md": [
+      "matcher/kabinetsreactie/run_vlam_response_to_other_advice_chooser.py::PROMPT_VERSION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/04_parlementaire_matcher/prompts/prompt_builder_system_prompt.md": [
+      "matcher/parlementair_v2/ai_review/prompt_builder.py::SYSTEM_PROMPT"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/04_parlementaire_matcher/schemas/prompt_builder_expected_output_schema.md": [
+      "matcher/parlementair_v2/ai_review/prompt_builder.py::EXPECTED_OUTPUT_SCHEMA"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/04_parlementaire_matcher/schemas/schemas_schema.md": [
+      "matcher/parlementair_v2/ai_review/schemas.py::__classes__"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/04_parlementaire_matcher/versions_prompt_builder_prompt_version.md": [
+      "matcher/parlementair_v2/ai_review/prompt_builder.py::PROMPT_VERSION"
+    ],
+    "thesis_export/prompts_schema_export_20260605/structured/matchers/04_parlementaire_matcher/versions_schemas_schema_version.md": [
+      "matcher/parlementair_v2/ai_review/schemas.py::SCHEMA_VERSION"
+    ]
+  },
+  "generated_at": "2026-06-05T22:26:22.503903+00:00",
+  "item_count": 138
+}

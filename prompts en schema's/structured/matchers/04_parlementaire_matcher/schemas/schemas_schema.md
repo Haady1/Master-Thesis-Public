@@ -1,0 +1,64 @@
+# Schemas Schema
+
+## `__classes__`
+
+- Bron: `matcher/parlementair_v2/ai_review/schemas.py`
+- Codebase: `matcher/parlementair_v2`
+- Type: `class_summary`
+- Categorie: `schema`
+- Status: `active`
+- SHA256: `0828f650fa24349f0ae0fe43978be04e77112f7129b9ac2d3e0679ce87263b64`
+- Thesis-relevantie: Pydantic review result schema, enums, and validators for parlementair_v2.
+- Versies:
+  - `SCHEMA_VERSION`: `parlementair_v2_ai_document_review_v1`
+
+- Klasse `TextEnum` op regel `39`
+  - Bases: `str, Enum`
+  - Docstring: String enum that serializes cleanly in Pydantic v1 and v2.
+- Klasse `DocumentConnection` op regel `43`
+  - Bases: `TextEnum`
+  - Enum/constanten: RUIS='ruis', CONTEXT='context', PROCEDUREEL_SPOOR='procedureel_spoor', INHOUDELIJK_VERBONDEN='inhoudelijk_verbonden', EXPLICIET_VERBONDEN='expliciet_verbonden'
+- Klasse `ParliamentaryFunction` op regel `51`
+  - Bases: `TextEnum`
+  - Enum/constanten: AANBIEDEN='aanbieden', AGENDEREN='agenderen', CONTROLEREN='controleren', VERANTWOORDEN='verantwoorden', FINANCIEREN='financieren', INSTITUTIONALISEREN='institutionaliseren', WETGEVEN='wetgeven', BEKRITISEREN='bekritiseren', UITVOEREN_VOORTGANG_MELDEN='uitvoeren_voortgang_melden', ADVIESAANVRAAG_MOTIVERING='adviesaanvraag_motivering', ADVIESPROCES_AANKONDIGING='adviesproces_aankondiging', OVERIG='overig', GEEN_RELEVANTE_FUNCTIE='geen_relevante_functie'
+- Klasse `Actor` op regel `67`
+  - Bases: `TextEnum`
+  - Enum/constanten: KABINET_BEWINDSPERSOON='kabinet_bewindspersoon', COALITIEPARTIJ='coalitiepartij', OPPOSITIEPARTIJ='oppositiepartij', INDIVIDUELE_KAMERLEDEN='individuele_kamerleden', KAMERCOMMISSIE='kamercommissie', EERSTE_KAMER='eerste_kamer', TWEEDE_KAMER='tweede_kamer', INDIENER_MOTIE_AMENDEMENT='indiener_motie_amendement', VRAGENSTELLER='vragensteller', NIET_TOE_TE_WIJZEN='niet_toe_te_wijzen'
+- Klasse `ProcessingFunction` op regel `80`
+  - Bases: `TextEnum`
+  - Enum/constanten: REFERENTIEEL_PROCEDUREEL_GEBRUIK='referentieel_procedureel_gebruik', CONCEPTUEEL_GEBRUIK='conceptueel_gebruik', INSTRUMENTEEL_HANDELINGSGERICHT_GEBRUIK='instrumenteel_handelingsgericht_gebruik', LEGITIMEREND_SUBSTANTIEREND_GEBRUIK='legitimerend_substantierend_gebruik', STRATEGISCH_POLITIEK_GEBRUIK='strategisch_politiek_gebruik', CONTROLEREND_GEBRUIK='controlerend_gebruik', CONFLICTUALISEREND_GEBRUIK='conflictualiserend_gebruik', MOBILISEREND_AGENDEREND_GEBRUIK='mobiliserend_agenderend_gebruik', REPRESENTATIEF_GEBRUIK='representatief_gebruik', VERANTWOORDINGSAFDWINGEND_GEBRUIK='verantwoordingsafdwingend_gebruik', ALTERNATIEF_BELEIDSVORMEND_GEBRUIK='alternatief_beleidsvormend_gebruik', GEEN_INHOUDELIJKE_VERWERKING='geen_inhoudelijke_verwerking'
+- Klasse `MatchType` op regel `95`
+  - Bases: `TextEnum`
+  - Enum/constanten: OVERGENOMEN='overgenomen', GEDEELTELIJK_OVERGENOMEN='gedeeltelijk_overgenomen', HERFORMULEERD='herformuleerd', AFGEWEZEN='afgewezen', GERELATIVEERD='gerelativeerd', GEKOPPELD_AAN_BESTAAND_BELEID='gekoppeld_aan_bestaand_beleid', GEBRUIKT_ALS_KRITIEK_OP_KABINETSBELEID='gebruikt_als_kritiek_op_kabinetsbeleid', GEBRUIKT_ALS_STEUN_VOOR_ALTERNATIEF_VOORSTEL='gebruikt_als_steun_voor_alternatief_voorstel', GEBRUIKT_OM_UITVOERING_AF_TE_DWINGEN='gebruikt_om_uitvoering_af_te_dwingen', GEBRUIKT_OM_UITSTEL_OF_GEBREK_AAN_REACTIE_TE_BEKRITISEREN='gebruikt_om_uitstel_of_gebrek_aan_reactie_te_bekritiseren', GEBRUIKT_OM_TOEZEGGINGEN_TE_CONTROLEREN='gebruikt_om_toezeggingen_te_controleren', PROCEDUREEL_OPGEVOLGD='procedureel_opgevolgd', FINANCIEEL_INSTITUTIONEEL_OPGEVOLGD='financieel_institutioneel_opgevolgd', ALLEEN_GENOEMD='alleen_genoemd'
+- Klasse `DirectionOfUse` op regel `114`
+  - Bases: `TextEnum`
+  - Enum/constanten: STEUNEND='steunend', KRITISCH='kritisch', VRAGEND_CONTROLEREND='vragend_controlerend', ALTERNATIEF='alternatief', NEUTRALISEREND='neutraliserend', LEGITIMEREND='legitimerend', MOBILISEREND='mobiliserend', ONDUIDELIJK='onduidelijk'
+- Klasse `EvidenceStrength` op regel `125`
+  - Bases: `TextEnum`
+  - Enum/constanten: STERK='sterk', MIDDEL='middel', ZWAK='zwak', GEEN='geen'
+- Klasse `ElementType` op regel `132`
+  - Bases: `TextEnum`
+  - Enum/constanten: PROBLEEMDEFINITIE='probleemdefinitie', AANBEVELING='aanbeveling'
+- Klasse `ThesisUse` op regel `137`
+  - Bases: `TextEnum`
+  - Enum/constanten: INHOUDELIJKE_VERWERKING='inhoudelijke verwerking', PROCEDUREEL_SPOOR='procedureel spoor', CONTEXT='context', RUIS='ruis', GRENSGEVAL='grensgeval'
+- Klasse `ReviewBaseModel` op regel `145`
+  - Bases: `BaseModel`
+- Klasse `DocumentAssessment` op regel `154`
+  - Bases: `ReviewBaseModel`
+  - Velden: document_id: str, advice_id: str, document_connection: DocumentConnection, connection_reason: str, primary_parliamentary_function: ParliamentaryFunction, secondary_parliamentary_functions: list[ParliamentaryFunction], actors_using_advice_content: list[Actor], explicit_reference_to_advice: bool, explicit_reference_to_advice_college: bool, explicit_reference_to_cabinet_response: bool, send_to_element_matching: bool, overall_evidence_strength: EvidenceStrength, short_summary: str
+- Klasse `DocumentLevelEvidence` op regel `170`
+  - Bases: `ReviewBaseModel`
+  - Velden: quote: str, location: str, shows: str
+- Klasse `ElementMatch` op regel `176`
+  - Bases: `ReviewBaseModel`
+  - Velden: element_id: str, element_type: ElementType, element_summary: str, processing_function: ProcessingFunction, match_type: MatchType, direction_of_use: DirectionOfUse, actor: Actor, advice_quote: str, parliamentary_quote: str, location_in_parliamentary_document: str, evidence_strength: EvidenceStrength, count_as_processing: bool, interpretation: str
+- Klasse `NonMatchOrNoise` op regel `192`
+  - Bases: `ReviewBaseModel`
+  - Velden: issue: str, reason: str, quote_if_relevant: str
+- Klasse `FinalJudgement` op regel `198`
+  - Bases: `ReviewBaseModel`
+  - Velden: usable_for_thesis_analysis: bool, use_as: ThesisUse, reason: str, warnings: list[str]
+- Klasse `DocumentReviewResult` op regel `205`
+  - Bases: `ReviewBaseModel`
+  - Velden: schema_version: Literal[SCHEMA_VERSION], document_assessment: DocumentAssessment, document_level_evidence: list[DocumentLevelEvidence], element_matches: list[ElementMatch], non_matches_or_noise: list[NonMatchOrNoise], final_judgement: FinalJudgement

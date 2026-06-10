@@ -1,0 +1,25 @@
+# 01 Instellingsmatcher
+
+Leesbare deel-export voor prompts en schema's. Deze map is bedoeld om vanaf GitHub direct te openen.
+
+## Bestanden
+
+- [prompts/llm_judge_discovery_document_classification_system_prompt.md](prompts/llm_judge_discovery_document_classification_system_prompt.md)
+- [prompts/llm_judge_document_classification_system_prompt.md](prompts/llm_judge_document_classification_system_prompt.md)
+- [prompts/llm_judge_known_college_url_validation_system_prompt.md](prompts/llm_judge_known_college_url_validation_system_prompt.md)
+- [prompts/llm_judge_system_prompt.md](prompts/llm_judge_system_prompt.md)
+- [prompts/llm_judge_visible_college_metadata_audit_system_prompt.md](prompts/llm_judge_visible_college_metadata_audit_system_prompt.md)
+- [schemas/llm_judge_discovery_document_classification_output_schema.md](schemas/llm_judge_discovery_document_classification_output_schema.md)
+- [schemas/llm_judge_document_classification_output_schema.md](schemas/llm_judge_document_classification_output_schema.md)
+- [schemas/llm_judge_expected_output_schema.md](schemas/llm_judge_expected_output_schema.md)
+- [schemas/llm_judge_known_college_url_validation_output_schema.md](schemas/llm_judge_known_college_url_validation_output_schema.md)
+- [schemas/llm_judge_schema.md](schemas/llm_judge_schema.md)
+- [schemas/llm_judge_visible_college_metadata_audit_output_schema.md](schemas/llm_judge_visible_college_metadata_audit_output_schema.md)
+- [technische_diagnose/diagnostic_judge_expected_diagnostic_schema.md](technische_diagnose/diagnostic_judge_expected_diagnostic_schema.md)
+- [technische_diagnose/diagnostic_judge_prompt_path.md](technische_diagnose/diagnostic_judge_prompt_path.md)
+- [technische_diagnose/diagnostic_judge_schema.md](technische_diagnose/diagnostic_judge_schema.md)
+- [technische_diagnose/pipeline_error_explainer_prompt_pipeline_error_explainer_prompt_md.md](technische_diagnose/pipeline_error_explainer_prompt_pipeline_error_explainer_prompt_md.md)
+- [versions_llm_judge_classifier_prompt_version.md](versions_llm_judge_classifier_prompt_version.md)
+- [versions_llm_judge_discovery_classifier_prompt_version.md](versions_llm_judge_discovery_classifier_prompt_version.md)
+- [versions_llm_judge_known_college_url_validation_prompt_version.md](versions_llm_judge_known_college_url_validation_prompt_version.md)
+- [versions_llm_judge_visible_college_metadata_audit_prompt_version.md](versions_llm_judge_visible_college_metadata_audit_prompt_version.md)

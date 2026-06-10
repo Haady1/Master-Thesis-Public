@@ -1,0 +1,20 @@
+# 03 Kabinetsreactie Matcher
+
+Leesbare deel-export voor prompts en schema's. Deze map is bedoeld om vanaf GitHub direct te openen.
+
+## Bestanden
+
+- [handmatige_controle/build_chatgpt_kabinetsreactie_search_batches_prompt_header.md](handmatige_controle/build_chatgpt_kabinetsreactie_search_batches_prompt_header.md)
+- [prompts/run_vlam_response_judge_system_prompt.md](prompts/run_vlam_response_judge_system_prompt.md)
+- [prompts/run_vlam_response_to_other_advice_chooser_system_prompt.md](prompts/run_vlam_response_to_other_advice_chooser_system_prompt.md)
+- [schemas/run_vlam_response_judge_allowed_target_types.md](schemas/run_vlam_response_judge_allowed_target_types.md)
+- [schemas/run_vlam_response_judge_allowed_verdicts.md](schemas/run_vlam_response_judge_allowed_verdicts.md)
+- [schemas/run_vlam_response_judge_build_vlam_user_payload.md](schemas/run_vlam_response_judge_build_vlam_user_payload.md)
+- [schemas/run_vlam_response_judge_coerce_vlam_response_output.md](schemas/run_vlam_response_judge_coerce_vlam_response_output.md)
+- [schemas/run_vlam_response_judge_schema.md](schemas/run_vlam_response_judge_schema.md)
+- [schemas/run_vlam_response_to_other_advice_chooser_allowed_choices.md](schemas/run_vlam_response_to_other_advice_chooser_allowed_choices.md)
+- [schemas/run_vlam_response_to_other_advice_chooser_build_choice_payload.md](schemas/run_vlam_response_to_other_advice_chooser_build_choice_payload.md)
+- [schemas/run_vlam_response_to_other_advice_chooser_coerce_chooser_output.md](schemas/run_vlam_response_to_other_advice_chooser_coerce_chooser_output.md)
+- [schemas/run_vlam_response_to_other_advice_chooser_schema.md](schemas/run_vlam_response_to_other_advice_chooser_schema.md)
+- [versions_run_vlam_response_judge_prompt_version.md](versions_run_vlam_response_judge_prompt_version.md)
+- [versions_run_vlam_response_to_other_advice_chooser_prompt_version.md](versions_run_vlam_response_to_other_advice_chooser_prompt_version.md)
